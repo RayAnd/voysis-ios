@@ -91,7 +91,7 @@ func onVoysisEvent(event: Event) {
     case .recordingFinished:
         print("notifies that recording has finished")
     case .vadReceived:
-        print("notifies that request has been cancelled")
+        print("notifies that voice activation detection has been received")
     case .audioQueryCreated:
         print("called when the initial connection json response is returned")
     case .audioQueryCompleted:
