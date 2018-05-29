@@ -51,7 +51,7 @@ Usage
 
 - The first step is to create a `Voysis.Servie` instance (Make sure to be using a valid url, `Context` and `Entities` types)
 ```swift
-let voysis = Voysis.ServiceProvider<CommerceContext, CommerceEntities>.Make(config: Config(url: URL(string: "//INCLUDE-URL-HERE")!))
+let voysis = Voysis.ServiceProvider<CommerceContext, CommerceEntities>.Make(config: Config(url: URL(string: "//INCLUDE-URL-HERE")!, refreshToken: "REFRESH-TOKEN"))
 ```
 
 
