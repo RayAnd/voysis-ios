@@ -72,7 +72,7 @@ func onVoysisEvent(event: Event) {
         print("notifies that recording has started")
     case .recordingFinished:
         print("notifies that recording has finished")
-    case .requestCancelled:
+    case .vadReceived:
         print("notifies that request has been cancelled")
     case .audioQueryCreated:
         print("called when the initial connection json response is returned")
