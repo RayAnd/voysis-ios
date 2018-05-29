@@ -4,5 +4,4 @@ public enum EventType {
     case recordingFinished
     case audioQueryCreated
     case audioQueryCompleted
-    case requestCancelled
 }

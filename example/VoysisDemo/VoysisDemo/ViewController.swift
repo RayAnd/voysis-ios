@@ -35,8 +35,6 @@ class ViewController: UIViewController {
             print("Vad Received")
         case .audioQueryCompleted:
             onResponse(event: event)
-        case .requestCancelled:
-            print("Cancelled")
         }
     }
 
