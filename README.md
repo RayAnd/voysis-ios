@@ -32,7 +32,7 @@ Overview
 
 The `Voysis.Service` class is the main interface used to process voice recognition requests.
 It is accessed via the static `Voysis.ServiceProvider.make(config: Config(url : "http://ADD-URL.com/websocket"))` method.
-The sdk communicates to the network using a websocket connection accomplished using the `Starscream.framework`.
+The sdk communicates to the network using a Websocket connection accomplished using the `Starscream.framework`.
 The iOS core library, `Audio Toolbox Audio Queue Services` is used for recording the users voice.
 
 
@@ -67,7 +67,7 @@ Usage
 -------------
 
 
-- The first step is to create a `Voysis.Servie` instance (Make sure to be using a valid url, `Context` and `Entities` types)
+- The first step is to create a `Voysis.Servie` instance (Make sure to be using a valid url, `Context` and `Entities` types).
 ```swift
 let voysis = Voysis.ServiceProvider<CommerceContext, CommerceEntities>.Make(config: Config(url: URL(string: "//INCLUDE-URL-HERE")!, refreshToken: "REFRESH-TOKEN"))
 ```
@@ -111,9 +111,9 @@ if let response = event.response! as? QueryResponse {
     print("response is \(response)")
 }
 ```
-Note: This response indicates that a successful connection was made and returns meta-data. This response can be ignored by most users
+Note: This response indicates that a successful connection was made and returns meta-data. This response can be ignored by most users.
 
-When the `EventType` is `.audioQueryCompleted` you can extract the *final* response by doing the following
+When the `EventType` is `.audioQueryCompleted` you can extract the *final* response by doing the following.
 
 ```swift
 if let response = event.response! as? StreamResponse<CommerceContext, CommerceEntities> {
@@ -144,7 +144,7 @@ Manual Integration - Embedded Framework
 -------------
 
 
-Note: This project requires [Carthage](https://github.com/Carthage/Carthage) to download the [Starscream](https://github.com/daltoniam/Starscream) websocket dependency
+Note: This project requires [Carthage](https://github.com/Carthage/Carthage) to download the [Starscream](https://github.com/daltoniam/Starscream) Websocket dependency.
 
 Adding Voysis Sdk
 - First clone the project. Next, open the new `Voysis` folder, and drag the `Voysis.xcodeproj` into the Project Navigator of your application's Xcode project.
@@ -158,14 +158,14 @@ Adding Voysis Sdk
 - Select the `Voysis.framework` for iOS.
 
 Adding Starscream
-- From within the Voysis directory run `carthage update --no-use-binaries --platform iOS` to download the Starscream.framework
+- From within the Voysis directory run `carthage update --no-use-binaries --platform iOS` to download the Starscream.framework.
 - Again Click on the `+` button under the "Embedded Binaries" section.
-- Click `Add Other`
-- Navigate to Voysis/Carthage/Build/iOS and click the Starscream.framework
+- Click `Add Other`.
+- Navigate to Voysis/Carthage/Build/iOS and click the Starscream.framework.
 
 IMPORTANT NOTE
 -------------
 
 
-As of iOS10 you will need to include `NSMicrophoneUsageDescription` in the application Info.plist
+As of iOS10 you will need to include `NSMicrophoneUsageDescription` in the application Info.plist.
 
