@@ -32,8 +32,25 @@ Overview
 
 The `Voysis.Service` class is the main interface used to process voice recognition requests.
 It is accessed via the static `Voysis.ServiceProvider.make(config: Config(url : "http://ADD-URL.com/websocket"))` method.
-The sdk communicates to the network using a websocket connection accomplished using the `Starscream.framework`.
+The sdk communicates to the network using a Websocket connection accomplished using the `Starscream.framework`.
 The iOS core library, `Audio Toolbox Audio Queue Services` is used for recording the users voice.
+
+
+Config
+-------------
+
+To create a service instance you need to provide config information at construction time.
+The config file is comprised of several fields.
+
+- **url** - *URL:* This is the endpoint that network requests will be executed against.
+The url is provided when your Voysis service is delivered. To sign up for a Voysis service visit our [homepage](https://voysis.com/)
+
+- **refreshToken** - *String:* The refresh token is used for authenticating unique users and for refreshing session tokens.
+This is all taken care of from within the library once the `refreshToken` is provided.
+For information on how to generate a refresh token see [here](https://developers.voysis.com/docs/authorization#section-introduction)
+
+- **userId** - *String?:* This is an optional UUID used for identifying users to improve query results over time. See [here](https://developers.voysis.com/docs/general-concepts#section-properties) for more details.
+
 
 
 Context - Entities
@@ -42,14 +59,15 @@ Context - Entities
 
 One of the features of using the Voysis service is that different json response types can be returned depending on what service you're subscribed to.
 The json objects which vary in type are `Context` and `Entities`. see [Api Docs](https://developers.voysis.com/docs/apis-1#section-stream-audio-data) for information.
-In order to facilitate this in the sdk and avail of the swift 4.0 `Codable` serialization protocol, the object structure for `Context` and `Entities` must be declared in advance and included during service creation. See the [demo application](https://github.com/voysis/voysis-ios/tree/master/example/VoysisDemo/VoysisDemo) and [Usage](https://github.com/voysis/voysis-ios/blob/master/README.md#usage) below for an example of this in action.
+In order to facilitate this in the sdk and avail of the swift 4.0 `Codable` serialization protocol, the object structure for `Context` and `Entities` must be declared in advance and included during service creation.
+See the [demo application](https://github.com/voysis/voysis-ios/tree/master/example/VoysisDemo/VoysisDemo) and [Usage](https://github.com/voysis/voysis-ios/blob/master/README.md#usage) below for an example of this in action.
 
 
 Usage
 -------------
 
 
-- The first step is to create a `Voysis.Servie` instance (Make sure to be using a valid url, `Context` and `Entities` types)
+- The first step is to create a `Voysis.Servie` instance (Make sure to be using a valid url, `Context` and `Entities` types).
 ```swift
 let voysis = Voysis.ServiceProvider<CommerceContext, CommerceEntities>.Make(config: Config(url: URL(string: "//INCLUDE-URL-HERE")!, refreshToken: "REFRESH-TOKEN"))
 ```
@@ -73,7 +91,7 @@ func onVoysisEvent(event: Event) {
     case .recordingFinished:
         print("notifies that recording has finished")
     case .vadReceived:
-        print("notifies that request has been cancelled")
+        print("notifies that voice activation detection has been received")
     case .audioQueryCreated:
         print("called when the initial connection json response is returned")
     case .audioQueryCompleted:
@@ -84,19 +102,19 @@ func onVoysisEvent(event: Event) {
 
 - The `Voysis.Event` object contains two fields: `EventType` and `ApiResposne`.
  `EventType` is a status enum which will always be populated.
- `ApiResponse` is a protocol whos concrete implementation is a data class representation of the json response and will only be populated when the `EventType` is either `.audioQueryCreated`, or `.audioQueryCompleted`. 
- 
+ `ApiResponse` is a protocol who's concrete implementation is a data class representation of the json response and will only be populated when the `EventType` is either `.audioQueryCreated`, or `.audioQueryCompleted`.
+
 When the `EventType` is `.audioQueryCreated` you can extract the *initial* response by doing the following.
-   
+
 ```swift
 if let response = event.response! as? QueryResponse {
     print("response is \(response)")
 }
 ```
-Note: This response indicates that a successful connection was made and returns meta-data. This resposne can be ignored by most users
+Note: This response indicates that a successful connection was made and returns meta-data. This response can be ignored by most users.
 
-When the `EventType` is `.audioQueryCompleted` you can extract the *final* response by doing the following
-    
+When the `EventType` is `.audioQueryCompleted` you can extract the *final* response by doing the following.
+
 ```swift
 if let response = event.response! as? StreamResponse<CommerceContext, CommerceEntities> {
     if let data = try? encoder.encode(response),
@@ -118,7 +136,7 @@ To integrate the VoysisSdk into your Xcode project using Carthage, specify it in
 
 - Once added, run `carthage update --no-use-binaries --platform iOS` from within your projects root directory.
 - Next, from within xCode, in the tab bar at the top of that window, open the "General" panel.
-- Click on the `+` button under the "Embedded Binaries" section. 
+- Click on the `+` button under the "Embedded Binaries" section.
 - Click `Add Other`
 - Navigate to {{YOUR_PROJECT}}/Carthage/Build/iOS and click the `Voysis.framework` and `Starscream.framework`
 
@@ -126,7 +144,7 @@ Manual Integration - Embedded Framework
 -------------
 
 
-Note: This project requires [Carthage](https://github.com/Carthage/Carthage) to download the [Starscream](https://github.com/daltoniam/Starscream) websocket dependency
+Note: This project requires [Carthage](https://github.com/Carthage/Carthage) to download the [Starscream](https://github.com/daltoniam/Starscream) Websocket dependency.
 
 Adding Voysis Sdk
 - First clone the project. Next, open the new `Voysis` folder, and drag the `Voysis.xcodeproj` into the Project Navigator of your application's Xcode project.
@@ -140,14 +158,14 @@ Adding Voysis Sdk
 - Select the `Voysis.framework` for iOS.
 
 Adding Starscream
-- From within the Voysis directory run `carthage update --no-use-binaries --platform iOS` to download the Starscream.framework
+- From within the Voysis directory run `carthage update --no-use-binaries --platform iOS` to download the Starscream.framework.
 - Again Click on the `+` button under the "Embedded Binaries" section.
-- Click `Add Other`
-- Navigate to Voysis/Carthage/Build/iOS and click the Starscream.framework
+- Click `Add Other`.
+- Navigate to Voysis/Carthage/Build/iOS and click the Starscream.framework.
 
 IMPORTANT NOTE
 -------------
 
 
-As of iOS10 you will need to include `NSMicrophoneUsageDescription` in the application Info.plist
+As of iOS10 you will need to include `NSMicrophoneUsageDescription` in the application Info.plist.
 
