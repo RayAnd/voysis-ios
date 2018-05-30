@@ -2,7 +2,7 @@ import Foundation
 
 public typealias ByteSender = ((Data) -> Void)
 
-public protocol Client {
+protocol Client {
 
     /**
      Call this method to initialize a new audio stream.

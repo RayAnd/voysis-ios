@@ -53,6 +53,16 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
         }
     }
 
+    public func finish() {
+        stop(Data([4]))
+    }
+
+    public func cancel() {
+        stop()
+        client.cancelAudioStream()
+        state = .idle
+    }
+
     public func refreshSessionToken(tokenHandler: @escaping TokenHandler, errorHandler: @escaping ErrorHandler) {
         tokenManager.tokenHandler = tokenHandler
         tokenManager.tokenErrorHandler = errorHandler
@@ -66,16 +76,6 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
                 handleError(error)
             }
         }
-    }
-
-    public func finish() {
-        stop(Data([4]))
-    }
-
-    public func cancel() {
-        stop()
-        client.cancelAudioStream()
-        state = .idle
     }
 
     public func sendFeedback(queryId: String, feedback: FeedbackData, feedbackHandler: @escaping FeedbackHandler, errorHandler: @escaping ErrorHandler) {
