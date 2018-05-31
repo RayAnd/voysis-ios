@@ -11,5 +11,3 @@ before_script:
 
 script:
   xcodebuild -scheme VoysisTests -project Voysis.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.3' build test
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
