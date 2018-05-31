@@ -33,6 +33,7 @@
 		F32ED2C3487901AA33E01ABB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* Config.swift */; };
 		F32ED46EFB3BA8F54FCBF676 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED342823D42A604203DD4 /* TokenManager.swift */; };
 		F32EDB3A98275ED46A056A22 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */; };
+		F32EDE5AFC41237F50725DBD /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = F32EDBBDAC0847C4752E6BFA /* .travis.yml */; };
 		F32EDF9CF5F43108E808C99C /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED26DBFCEB0597E881AB2 /* FeedbackManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		F32ED711D62BDC6CDE44083F /* HeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTests.swift; sourceTree = "<group>"; };
 		F32ED8E85917F9571047A2E6 /* VoysisTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoysisTests.swift; sourceTree = "<group>"; };
 		F32ED91D71111AA13FD3B671 /* Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		F32EDBBDAC0847C4752E6BFA /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .travis.yml; sourceTree = "<group>"; };
 		F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,6 +131,7 @@
 				65D499B320039AD6005AFF23 /* Products */,
 				F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */,
 				6519A1D82051BF67000F35EB /* Frameworks */,
+				F32EDBBDAC0847C4752E6BFA /* .travis.yml */,
 			);
 			sourceTree = "<group>";
 		};
@@ -338,6 +341,7 @@
 			files = (
 				65C4AE0A202487FF008F2A88 /* voysis_on.mp3 in Resources */,
 				F32ED1DACC56B028C631B18F /* voysis_off.mp3 in Resources */,
+				F32EDE5AFC41237F50725DBD /* .travis.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

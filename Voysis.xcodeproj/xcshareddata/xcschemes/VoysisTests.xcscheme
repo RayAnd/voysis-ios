@@ -13,20 +13,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "65D499B120039AD6005AFF23"
-               BuildableName = "Voysis.framework"
-               BlueprintName = "Voysis"
-               ReferencedContainer = "container:Voysis.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "65D499BA20039AD6005AFF23"
                BuildableName = "VoysisTests.xctest"
                BlueprintName = "VoysisTests"
@@ -52,15 +38,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "65D499B120039AD6005AFF23"
-            BuildableName = "Voysis.framework"
-            BlueprintName = "Voysis"
-            ReferencedContainer = "container:Voysis.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -77,9 +54,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "65D499B120039AD6005AFF23"
-            BuildableName = "Voysis.framework"
-            BlueprintName = "Voysis"
+            BlueprintIdentifier = "65D499BA20039AD6005AFF23"
+            BuildableName = "VoysisTests.xctest"
+            BlueprintName = "VoysisTests"
             ReferencedContainer = "container:Voysis.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -92,15 +69,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "65D499B120039AD6005AFF23"
-            BuildableName = "Voysis.framework"
-            BlueprintName = "Voysis"
-            ReferencedContainer = "container:Voysis.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
