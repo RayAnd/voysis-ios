@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6524F0AF20C0277900B1FAFA /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652D0461206D287200DEA61F /* Starscream.framework */; };
 		6546C12C2077CDCF00C12621 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A10200515E3005AFF23 /* EventType.swift */; };
 		6546C12D2077CDCF00C12621 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A122005163F005AFF23 /* Event.swift */; };
 		6546C12E2077CDCF00C12621 /* VoysisError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED4B973DD77DA54D742C7 /* VoysisError.swift */; };
@@ -99,7 +98,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6524F0AF20C0277900B1FAFA /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,7 +539,6 @@
 				);
 				INFOPLIST_FILE = Voysis/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.voysis.Voysis;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -572,7 +569,6 @@
 				);
 				INFOPLIST_FILE = Voysis/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.voysis.Voysis;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
