@@ -27,7 +27,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "65D499BA20039AD6005AFF23"
+               BuildableName = "VoysisTests.xctest"
+               BlueprintName = "VoysisTests"
+               ReferencedContainer = "container:Voysis.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "65D499B120039AD6005AFF23"
+            BuildableName = "Voysis.framework"
+            BlueprintName = "Voysis"
+            ReferencedContainer = "container:Voysis.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -59,6 +78,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "65D499B120039AD6005AFF23"
+            BuildableName = "Voysis.framework"
+            BlueprintName = "Voysis"
+            ReferencedContainer = "container:Voysis.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
