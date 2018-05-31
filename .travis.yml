@@ -3,7 +3,7 @@ osx_image: xcode9
 before_install:
 - brew install carthage
 script:
-  carthage update
+  carthage update copy-frameworks
 script:
   xcodebuild -scheme VoysisTests -project Voysis.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.0' build test
 after_success:
