@@ -73,18 +73,6 @@ class VoysisTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
 
-    func testTokenFailFeedbackResponse() {
-        let errorResponse = expectation(description: "tokenError")
-        client.stringEvent = feedback
-        let errorHandler = { (error: VoysisError) in
-            if case VoysisError.tokenError = error {
-                errorResponse.fulfill()
-            }
-        }
-        voysis.sendFeedback(queryId: "1" ,feedback: FeedbackData(), feedbackHandler: { (_: Int) in }, errorHandler: errorHandler)
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-
     func testCreateAndManualFinishRequest() {
         let endData = expectation(description: "4 bytes sent at end")
         client.dataCallback = { ( data: Data) in
