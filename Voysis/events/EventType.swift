@@ -1,7 +1,7 @@
 public enum EventType {
     case recordingStarted
-    case vadReceived
-    case recordingFinished
     case audioQueryCreated
+    case recordingFinished
+    case vadReceived
     case audioQueryCompleted
 }
