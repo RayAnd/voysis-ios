@@ -109,7 +109,7 @@ class VoysisTests: XCTestCase {
         }
         let completed = expectation(description: "completed")
         let callback = { (call: String) in
-            if (call == "recordingFinished") {
+            if (call == "vadReceived") {
                 completed.fulfill()
             }
         }
