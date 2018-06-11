@@ -1,7 +1,10 @@
-public enum EventType {
-    case recordingStarted
+internal enum EventType {
     case audioQueryCreated
-    case recordingFinished
     case vadReceived
     case audioQueryCompleted
+}
+
+public enum FinishedReason {
+    case vadReceived
+    case manualStop
 }
