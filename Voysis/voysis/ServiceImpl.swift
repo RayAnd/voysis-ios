@@ -178,7 +178,7 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
                 state = .idle
                 callbackDispatcher.success(response: event.response!)
             case .audioQueryCreated:
-                callbackDispatcher.queryResponse(query: event.response as! QueryResponse)
+                callbackDispatcher.queryResponse(queryResponse: event.response as! QueryResponse)
             }
         } catch {
             cancel()
