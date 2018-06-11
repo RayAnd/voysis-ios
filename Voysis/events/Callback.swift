@@ -4,12 +4,13 @@ public protocol Callback: class {
 
     /**
      Called when a successful response has been returned from server.
-      -Parameter response: response object representation of successful json response.
+      -Parameter response: object representation of successful json response.
      */
     func success(response: ApiResponse)
 
     /**
-      -Parameter error: provides throwable.
+     See VoysisError for different possible error responses.
+      -Parameter error: provides VoysisError.
      */
     func failure(error: VoysisError)
 
