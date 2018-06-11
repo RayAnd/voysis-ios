@@ -48,7 +48,7 @@ public extension Callback {
         //no implementation
     }
 
-    func queryResponse(query: QueryResponse) {
+    func queryResponse(queryResponse: QueryResponse) {
         //no implementation
     }
 
