@@ -7,7 +7,7 @@ import Foundation
  must be implemented by concrete classes that are of the same type that the user expects returned from the server.
  See the sample application for an example of a correct implementation of `Context` and `Entities`
 */
-public struct ServiceProvider<C: Context, E: Entities> {
+public struct ServiceProvider {
 
     /**
      -Parameter config: containing url endpoint and refreshToken.
