@@ -24,10 +24,10 @@ public struct ServiceProvider<C: Context, E: Entities> {
      -Return new instance of Voysis.Service
     */
     public static func make(config: Config, recorder: AudioRecorder, callbackQueue: DispatchQueue = DispatchQueue.main) -> Service {
-        return ServiceImpl<C, E>(
+        return ServiceImpl(
                 client: VoysisWebSocketClient(request: URLRequest(url: config.url), dispatchQueue: callbackQueue),
                 recorder: recorder,
-                callbackDispatcher: CallbackDispatcher(callbackQueue),
+                dispatchQueue: callbackQueue,
                 feedbackManager: FeedbackManager(callbackQueue),
                 tokenManager: TokenManager(refreshToken: config.refreshToken, dispatchQueue: callbackQueue),
                 userId: config.userId)

@@ -45,17 +45,15 @@ class ViewController: UIViewController, Callback {
         }
     }
 
-    func success(response: ApiResponse) {
+    func success(response: StreamResponse<CommerceContext, CommerceEntities>) {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        if let response = response as? StreamResponse<CommerceContext, CommerceEntities> {
-            if let context = response.context {
-                self.context = context
-            }
-            if let data = try? encoder.encode(response),
-               let json = String(data: data, encoding: .utf8) {
-                self.response.text = json
-            }
+        if let context = response.context {
+            self.context = context
+        }
+        if let data = try? encoder.encode(response),
+           let json = String(data: data, encoding: .utf8) {
+            self.response.text = json
         }
     }
 

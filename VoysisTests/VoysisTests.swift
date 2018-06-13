@@ -2,19 +2,14 @@ import XCTest
 @testable import Voysis
 
 class VoysisTests: XCTestCase {
-    class TestContext: Context {
-    }
-
-    class TestEntities: Entities {
-    }
 
     let token = "{\"type\":\"response\",\"entity\":{\"token\":\"1\",\"expiresAt\":\"2018-04-17T14:14:06.701Z\"},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
     let feedback = "{\"type\":\"response\",\"entity\":{},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
 
-    private var voysis: ServiceImpl<TestContext, TestEntities>!
+    private var voysis: ServiceImpl!
     private var audioRecordManager: AudioRecordManagerMock!
     private var client: ClientMock!
-    private var context: Context?
+    private var context: TestContext?
     private var tokenManager: TokenManager!
     private var resreshToken = "token"
     private var callbackMock = CallbackMock()
@@ -25,10 +20,9 @@ class VoysisTests: XCTestCase {
         audioRecordManager = AudioRecordManagerMock()
         tokenManager = TokenManager(refreshToken: resreshToken, dispatchQueue: DispatchQueue.main)
         let feedbackManager = FeedbackManager(DispatchQueue.main)
-        let callbackDispatcher = CallbackDispatcher(DispatchQueue.main)
         voysis = ServiceImpl(client: client,
                 recorder: audioRecordManager,
-                callbackDispatcher: callbackDispatcher,
+                dispatchQueue: DispatchQueue.main,
                 feedbackManager: feedbackManager,
                 tokenManager: tokenManager,
                 userId: "")
@@ -58,7 +52,7 @@ class VoysisTests: XCTestCase {
             }
         }
         callbackMock.callback = callback
-        voysis.startAudioQuery(context: context, callback: callbackMock)
+        voysis!.startAudioQuery(context: context, callback: callbackMock)
         waitForExpectations(timeout: 5, handler: nil)
     }
 

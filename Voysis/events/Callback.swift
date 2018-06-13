@@ -2,11 +2,14 @@ import Foundation
 
 public protocol Callback: class {
 
+    associatedtype C : Context
+    associatedtype E : Entities
+
     /**
      Called when a successful response has been returned from server.
       -Parameter response: object representation of successful json response.
      */
-    func success(response: ApiResponse)
+    func success(response: StreamResponse<C,E>)
 
     /**
      See VoysisError for different possible error responses.

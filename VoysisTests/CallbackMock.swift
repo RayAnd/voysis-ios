@@ -1,10 +1,16 @@
 import Foundation
 
+class TestContext: Context {
+}
+
+class TestEntities: Entities {
+}
+
 class CallbackMock: Callback {
 
     var callback: ((String) -> Void)?
 
-    func success(response: ApiResponse) {
+    func success(response: StreamResponse<TestContext, TestEntities>) {
         callback?("success")
     }
 

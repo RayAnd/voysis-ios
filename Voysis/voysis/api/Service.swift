@@ -35,7 +35,7 @@ public protocol Service {
            - see `VoysisError` for all possible error types
            - this method will call back to the same thread that called `startAudioQuery`
      */
-    func startAudioQuery(context: Context?, callback : Callback)
+    func startAudioQuery<C, E, T: Callback>(context: C?, callback: T) where T.C == C, T.E == E
 
     ///Call to manually stop recording audio and process request
     func finish()
