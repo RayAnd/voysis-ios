@@ -2,7 +2,7 @@ import Foundation
 
 internal class CallbackDispatcher<T: Callback> {
     private let dispatchQueue: DispatchQueue
-    private weak var callback: T!
+    private let callback: T
 
     init(_ dispatchQueue: DispatchQueue, _ callback: T) {
         self.dispatchQueue = dispatchQueue
