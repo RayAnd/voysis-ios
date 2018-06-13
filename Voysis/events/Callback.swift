@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol Callback: class {
+public protocol Callback: AnyObject {
 
     associatedtype C : Context
     associatedtype E : Entities
