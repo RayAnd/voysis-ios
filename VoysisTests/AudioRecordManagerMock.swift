@@ -6,18 +6,18 @@ import Foundation
 * When stop recording called, onDataResponse called with isRecording false
 */
 class AudioRecordManagerMock: AudioRecorder {
-    var onDataResponse: ((Data, Bool) -> Void)?
+    var onDataResponse: ((Data, FinishedReason?) -> Void)?
 
     var data : Data?
 
-    public func start(onDataResponse: @escaping ((Data, Bool) -> Void)) {
+    public func start(onDataResponse: @escaping ((Data, FinishedReason?) -> Void)) {
         if (self.onDataResponse != nil) {
             self.onDataResponse = onDataResponse
         }
-        onDataResponse(data ?? Data(), true)
+        onDataResponse(data ?? Data(), .manualStop)
     }
 
-    public func stop() {
-        onDataResponse?(Data(), false)
+    public func stop(reason : FinishedReason) {
+        onDataResponse?(Data(), reason)
     }
 }

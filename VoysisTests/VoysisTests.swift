@@ -44,7 +44,7 @@ class VoysisTests: XCTestCase {
         let vadReceived = expectation(description: "vad received")
         client.stringEvent = token
         client.setupStreamEvent = "{\"type\":\"notification\",\"notificationType\":\"vad_stop\"}"
-        audioRecordManager.onDataResponse = { (data: Data, isRecording: Bool) in
+        audioRecordManager.onDataResponse = { (data: Data, isRecording: FinishedReason?) in
         }
         let callback = { (call: String) in
             if (call == "vadReceived") {

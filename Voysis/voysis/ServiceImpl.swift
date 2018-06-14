@@ -50,11 +50,11 @@ internal class ServiceImpl: Service {
     }
 
     public func finish() {
-        stop(Data([4]))
+        stop(.manualStop, Data([4]))
     }
 
     public func cancel() {
-        stop()
+        stop(.manualStop)
         client.cancelAudioStream()
         state = .idle
     }
@@ -130,9 +130,9 @@ internal class ServiceImpl: Service {
         callback.recordingStarted()
     }
 
-    private func audioCallback<T: Callback>(_ data: Data, _ isRecording: Bool, _ bytesRead: inout Int, _ dispatcher: CallbackDispatcher<T>) {
-        if !isRecording {
-            dispatcher.recordingFinished(.manualStop)
+    private func audioCallback<T: Callback>(_ data: Data, _ finishedReason: FinishedReason?, _ bytesRead: inout Int, _ dispatcher: CallbackDispatcher<T>) {
+        if finishedReason != nil {
+            dispatcher.recordingFinished(finishedReason!)
         }
         guard !data.isEmpty else {
             return
@@ -145,8 +145,8 @@ internal class ServiceImpl: Service {
         }
     }
 
-    private func stop(_ data: Data? = nil) {
-        recorder.stop()
+    private func stop(_ reason: FinishedReason, _ data: Data? = nil) {
+        recorder.stop(reason: reason)
         queueAudio(data)
     }
 
@@ -168,8 +168,7 @@ internal class ServiceImpl: Service {
             let event = try Converter.decodeResponse(json: data, context: T.C.self, entity: T.E.self)
             switch event.type {
             case .vadReceived:
-                stop()
-                dispatcher.recordingFinished(.vadReceived)
+                stop(.vadReceived)
             case .audioQueryCompleted:
                 state = .idle
                 dispatcher.success(event.response! as! StreamResponse<T.C, T.E>)
