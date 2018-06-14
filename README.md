@@ -67,7 +67,7 @@ Usage
 -------------
 
 
-- The first step is to create a `Voysis.Servie` instance.
+- The first step is to create a `Voysis.Service` instance.
 ```swift
 let voysis = Voysis.ServiceProvider.Make(config: Config(url: URL(string: "//INCLUDE-URL-HERE")!, refreshToken: "REFRESH-TOKEN"))
 ```
