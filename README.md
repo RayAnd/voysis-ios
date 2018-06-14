@@ -6,7 +6,7 @@ Voysis iOS Swift SDK
 
 This document provides a brief overview of the Voysis iOS SDK.
 This is an iOS library that facilitates sending voice
-queries to a Voysis instance. The SDK streams audio from the device microphone 
+queries to a Voysis instance. The SDK streams audio from the device microphone
 to the Voysis backend servers when called by the client application.
 
 
@@ -59,68 +59,51 @@ Context - Entities
 
 One of the features of using the Voysis service is that different json response types can be returned depending on what service you're subscribed to.
 The json objects which vary in type are `Context` and `Entities`. see [Api Docs](https://developers.voysis.com/docs/apis-1#section-stream-audio-data) for information.
-In order to facilitate this in the sdk and avail of the swift 4.0 `Codable` serialization protocol, the object structure for `Context` and `Entities` must be declared in advance and included during service creation.
-See the [demo application](https://github.com/voysis/voysis-ios/tree/master/example/VoysisDemo/VoysisDemo) and [Usage](https://github.com/voysis/voysis-ios/blob/master/README.md#usage) below for an example of this in action.
+In order to facilitate this in the sdk and avail of the swift 4.0 `Codable` serialization protocol, the object structure for `Context` and `Entities`
+must be setup by the user and added as generic parameters in the success callback. See the [demo application](https://github.com/voysis/voysis-ios/tree/master/example/VoysisDemo/VoysisDemo) and [Usage](https://github.com/voysis/voysis-ios/blob/master/README.md#usage) below for an example of this in action.
 
 
 Usage
 -------------
 
 
-- The first step is to create a `Voysis.Service` instance (Make sure to be using a valid url, `Context` and `Entities` types).
+- The first step is to create a `Voysis.Service` instance.
+
 ```swift
-let voysis = Voysis.ServiceProvider<CommerceContext, CommerceEntities>.Make(config: Config(url: URL(string: "//INCLUDE-URL-HERE")!, refreshToken: "REFRESH-TOKEN"))
+let voysis = Voysis.ServiceProvider.Make(config: Config(url: URL(string: "//INCLUDE-URL-HERE")!, refreshToken: "REFRESH-TOKEN"))
 ```
 
 
-- Next, to make a request you can do the following.
+- Next: to make a request, call service.startAudioQuery with the mandatory Callback parameter and optional voysis Context (See context section below for details).
 ```swift
-try? voysis.startAudioQuery(context: self.context, eventHandler: self.onVoysisEvent, errorHandler: self.onError)
-```
-
-
-- Once a request is made callbacks will be received through the eventHandler which the user can choose to react to or ignore.
-  This can be a good place to update animation etc, to indicate to the user that recording is in progress.
-
-
-```swift
-func onVoysisEvent(event: Event) {
-    switch event.type {
-    case .recordingStarted:
-        print("notifies that recording has started")
-    case .recordingFinished:
-        print("notifies that recording has finished")
-    case .vadReceived:
-        print("notifies that voice activation detection has been received")
-    case .audioQueryCreated:
-        print("called when the initial connection json response is returned")
-    case .audioQueryCompleted:
-        print("called when final json response is returned.")
+class ViewController: UIViewController, Callback {
+    ...
+    @IBAction func buttonClicked(_ sender: Any) {
+        voysis.startAudioQuery(context: self.context, callback: self)
     }
-}
-```
 
-- The `Voysis.Event` object contains two fields: `EventType` and `ApiResposne`.
- `EventType` is a status enum which will always be populated.
- `ApiResponse` is a protocol who's concrete implementation is a data class representation of the json response and will only be populated when the `EventType` is either `.audioQueryCreated`, or `.audioQueryCompleted`.
+    func success(response: StreamResponse<CommerceContext, CommerceEntities>) {
+        // Mandatory: called when final response returned from server.
+    }
 
-When the `EventType` is `.audioQueryCreated` you can extract the *initial* response by doing the following.
+    func failure(error: VoysisError) {
+        // Mandatory: called when any error occurs
+    }
 
-```swift
-if let response = event.response! as? QueryResponse {
-    print("response is \(response)")
-}
-```
-Note: This response indicates that a successful connection was made and returns meta-data. This response can be ignored by most users.
+    func recordingStarted() {
+        //Optional: called when microphone begins recording.
+    }
 
-When the `EventType` is `.audioQueryCompleted` you can extract the *final* response by doing the following.
+    func queryResponse(queryResponse: QueryResponse) {
+        //Optional: called when successful connection is made to the server.
+    }
 
-```swift
-if let response = event.response! as? StreamResponse<CommerceContext, CommerceEntities> {
-    if let data = try? encoder.encode(response),
-        let json = String(data: data, encoding: .utf8) {
-            print(json)
-        }
+    func recordingFinished(reason: FinishedReason) {
+        //Optional: called when recording stops. Includes finishedReason enum.
+    }
+
+    func audioData(data: Data) {
+        //Optional: returns audio data to the user that can be used generating for dynamic animations, analytics etc.
     }
 }
 ```
