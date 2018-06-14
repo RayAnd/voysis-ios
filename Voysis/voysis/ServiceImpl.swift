@@ -1,6 +1,6 @@
 import AVFoundation
 
-internal class ServiceImpl<C: Context, E: Entities>: Service {
+internal class ServiceImpl: Service {
     private let session = AVAudioSession.sharedInstance()
     private let dispatchQueue: DispatchQueue
     private let feedbackManager: FeedbackManager
@@ -11,9 +11,6 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
     private let client: Client
     private let userId: String?
 
-    private var errorHandler: ErrorHandler!
-    private var eventHandler: EventHandler!
-
     private var byteSender: ByteSender?
     private var maxBytes = 320000
 
@@ -21,10 +18,10 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
 
     init(client: Client,
          recorder: AudioRecorder,
+         dispatchQueue: DispatchQueue,
          feedbackManager: FeedbackManager,
          tokenManager: TokenManager,
-         userId: String?,
-         dispatchQueue: DispatchQueue) {
+         userId: String?) {
         self.client = client
         self.recorder = recorder
         self.tokenManager = tokenManager
@@ -37,19 +34,18 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
         audioQueue.isSuspended = true
     }
 
-    public func startAudioQuery(context: Context?, eventHandler: @escaping  EventHandler, errorHandler: @escaping ErrorHandler) {
+    public func startAudioQuery<C, E, T: Callback>(context: C?, callback: T) where T.C == C, T.E == E {
+        let dispatcher = CallbackDispatcher(dispatchQueue, callback)
         if state != .idle {
-            handleError(.duplicateProcessingRequest)
+            dispatcher.failure(.duplicateProcessingRequest)
             return
         }
-        self.errorHandler = errorHandler
-        self.eventHandler = eventHandler
         session.requestRecordPermission { granted in
             guard granted else {
-                self.handleError(.permissionNotGrantedError)
+                dispatcher.failure(.permissionNotGrantedError)
                 return
             }
-            self.performAudioQuery(context: context)
+            self.performAudioQuery(context, dispatcher)
         }
     }
 
@@ -73,7 +69,7 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
             client.sendString(entity: entity!, onMessage: tokenManager.onTokenMessage, onError: tokenManager.onError)
         } catch {
             if let error = error as? VoysisError {
-                handleError(error)
+                tokenManager.onError(error)
             }
         }
     }
@@ -100,48 +96,49 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
         }
     }
 
-    private func performAudioQuery(context: Context?) {
+    private func performAudioQuery<C: Context, T: Callback>(_ context: C?, _ dispatcher: CallbackDispatcher<T>) {
         state = .busy
-        startRecording()
+        startRecording(dispatcher)
         if tokenManager.tokenIsValid() {
-            startAudioQuery(context: context)
+            startAudioQuery(context, dispatcher)
         } else {
-            refreshSessionToken(tokenHandler: { _ in self.startAudioQuery(context: context) }, errorHandler: errorHandler)
+            refreshSessionToken(tokenHandler: { _ in self.startAudioQuery(context, dispatcher) }, errorHandler: { self.onError($0, dispatcher) })
         }
     }
 
-    private func startAudioQuery(context: Context?) {
+    private func startAudioQuery<C: Context, T: Callback>(_ context: C?, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            let entity = RequestEntity(userId: userId, context: context as? C)
+            let entity = RequestEntity(userId: userId, context: context)
             let request = SocketRequest(entity: entity, method: "POST", headers: Headers(token: tokenManager.token!.token), restURI: "/queries")
             if let entity = try Converter.encodeRequest(socketRequest: request) {
-                byteSender = client.setupAudioStream(entity: entity, onMessage: self.onMessage, onError: self.onError)
+                byteSender = client.setupAudioStream(entity: entity, onMessage: { self.onMessage($0, dispatcher) }, onError: { self.onError($0, dispatcher) })
                 audioQueue.isSuspended = false
             }
         } catch {
-            handleError(.requestEncodingError)
+            dispatcher.failure(.requestEncodingError)
         }
     }
 
-    private func startRecording() {
+    private func startRecording<T: Callback>(_ callback: CallbackDispatcher<T>) {
         audioQueue.cancelAllOperations()
         audioQueue.isSuspended = true
         byteSender = nil
         var bytesRead = 0
         recorder.start {
-            self.audioCallback(data: $0, isRecording: $1, bytesRead: &bytesRead)
+            self.audioCallback($0, $1, &bytesRead, callback)
         }
-        handleEvent(Event(response: nil, type: .recordingStarted))
+        callback.recordingStarted()
     }
 
-    private func audioCallback(data: Data, isRecording: Bool, bytesRead: inout Int) {
+    private func audioCallback<T: Callback>(_ data: Data, _ isRecording: Bool, _ bytesRead: inout Int, _ dispatcher: CallbackDispatcher<T>) {
         if !isRecording {
-            handleEvent(Event(response: nil, type: .recordingFinished))
+            dispatcher.recordingFinished(.manualStop)
         }
         guard !data.isEmpty else {
             return
         }
         queueAudio(data)
+        dispatcher.audioData(data)
         bytesRead += data.count
         if bytesRead >= maxBytes {
             finish()
@@ -161,36 +158,28 @@ internal class ServiceImpl<C: Context, E: Entities>: Service {
         }
     }
 
-    private func handleError(_ error: VoysisError) {
-        dispatchQueue.async {
-            self.errorHandler?(error)
-        }
-    }
-
-    private func handleEvent(_ event: Event) {
-        dispatchQueue.async {
-            self.eventHandler?(event)
-        }
-    }
-
-    private func onError(exception: VoysisError) {
+    private func onError<T: Callback>(_ error: VoysisError, _ dispatcher: CallbackDispatcher<T>) {
         cancel()
-        handleError(exception)
+        dispatcher.failure(error)
     }
 
-    private func onMessage(data: String) {
+    private func onMessage<T: Callback>(_ data: String, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            let event = try Converter.decodeResponse(json: data, context: C.self, entity: E.self)
-            if event.type == .vadReceived {
+            let event = try Converter.decodeResponse(json: data, context: T.C.self, entity: T.E.self)
+            switch event.type {
+            case .vadReceived:
                 stop()
-            } else if event.type == .audioQueryCompleted {
+                dispatcher.recordingFinished(.vadReceived)
+            case .audioQueryCompleted:
                 state = .idle
+                dispatcher.success(event.response! as! StreamResponse<T.C, T.E>)
+            case .audioQueryCreated:
+                dispatcher.queryResponse(event.response as! QueryResponse)
             }
-            handleEvent(event)
         } catch {
             cancel()
             if let error = error as? VoysisError {
-                self.errorHandler?(error)
+                dispatcher.failure(error)
             }
         }
     }

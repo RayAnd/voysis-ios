@@ -7,7 +7,7 @@ import Foundation
  must be implemented by concrete classes that are of the same type that the user expects returned from the server.
  See the sample application for an example of a correct implementation of `Context` and `Entities`
 */
-public struct ServiceProvider<C: Context, E: Entities> {
+public struct ServiceProvider {
 
     /**
      -Parameter config: containing url endpoint and refreshToken.
@@ -24,14 +24,12 @@ public struct ServiceProvider<C: Context, E: Entities> {
      -Return new instance of Voysis.Service
     */
     public static func make(config: Config, recorder: AudioRecorder, callbackQueue: DispatchQueue = DispatchQueue.main) -> Service {
-        let client = VoysisWebSocketClient(request: URLRequest(url: config.url), dispatchQueue: callbackQueue)
-        let tokenManager = TokenManager(refreshToken: config.refreshToken, dispatchQueue: callbackQueue)
-        let feedbackManager = FeedbackManager(callbackQueue)
-        return ServiceImpl<C, E>(client: client,
+        return ServiceImpl(
+                client: VoysisWebSocketClient(request: URLRequest(url: config.url), dispatchQueue: callbackQueue),
                 recorder: recorder,
-                feedbackManager: feedbackManager,
-                tokenManager: tokenManager,
-                userId: config.userId,
-                dispatchQueue: callbackQueue)
+                dispatchQueue: callbackQueue,
+                feedbackManager: FeedbackManager(callbackQueue),
+                tokenManager: TokenManager(refreshToken: config.refreshToken, dispatchQueue: callbackQueue),
+                userId: config.userId)
     }
 }

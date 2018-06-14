@@ -2,21 +2,17 @@ import XCTest
 @testable import Voysis
 
 class VoysisTests: XCTestCase {
-    class TestContext: Context {
-    }
-
-    class TestEntities: Entities {
-    }
 
     let token = "{\"type\":\"response\",\"entity\":{\"token\":\"1\",\"expiresAt\":\"2018-04-17T14:14:06.701Z\"},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
     let feedback = "{\"type\":\"response\",\"entity\":{},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
 
-    private var voysis: ServiceImpl<TestContext, TestEntities>!
+    private var voysis: ServiceImpl!
     private var audioRecordManager: AudioRecordManagerMock!
     private var client: ClientMock!
-    private var context: Context?
+    private var context: TestContext?
     private var tokenManager: TokenManager!
     private var resreshToken = "token"
+    private var callbackMock = CallbackMock()
 
     override func setUp() {
         super.setUp()
@@ -24,13 +20,12 @@ class VoysisTests: XCTestCase {
         audioRecordManager = AudioRecordManagerMock()
         tokenManager = TokenManager(refreshToken: resreshToken, dispatchQueue: DispatchQueue.main)
         let feedbackManager = FeedbackManager(DispatchQueue.main)
-        feedbackManager.dispatchQueue = DispatchQueue.main
         voysis = ServiceImpl(client: client,
                 recorder: audioRecordManager,
+                dispatchQueue: DispatchQueue.main,
                 feedbackManager: feedbackManager,
                 tokenManager: tokenManager,
-                userId: "",
-                dispatchQueue: DispatchQueue.main)
+                userId: "")
 
         //closure cannot be null but is not required for most tests.
         client.dataCallback = { ( data: Data) in
@@ -51,12 +46,13 @@ class VoysisTests: XCTestCase {
         client.setupStreamEvent = "{\"type\":\"notification\",\"notificationType\":\"vad_stop\"}"
         audioRecordManager.onDataResponse = { (data: Data, isRecording: Bool) in
         }
-        let voysisEvent = { (event: Event) in
-            if (event.type == EventType.recordingFinished) {
+        let callback = { (call: String) in
+            if (call == "vadReceived") {
                 vadReceived.fulfill()
             }
         }
-        voysis.startAudioQuery(context: context, eventHandler: voysisEvent, errorHandler: { (_: VoysisError) in })
+        callbackMock.callback = callback
+        voysis!.startAudioQuery(context: context, callback: callbackMock)
         waitForExpectations(timeout: 5, handler: nil)
     }
 
@@ -79,23 +75,23 @@ class VoysisTests: XCTestCase {
             XCTAssertTrue(data.count == 1)
             endData.fulfill()
         }
-        let voysisEvent = { (event: Event) in
-            //ignore
-        }
         client.stringEvent = token
-        voysis.startAudioQuery(context: context, eventHandler: voysisEvent, errorHandler: { (_: VoysisError) in })
+        voysis.startAudioQuery(context: context, callback: callbackMock)
         voysis.finish()
         waitForExpectations(timeout: 5, handler: nil)
 
     }
 
-    func testErrorResposne() {
+    func testErrorResponse() {
         let errorReceived = expectation(description: "error received")
         client.error = VoysisError.unknownError
-        let errorHandler = { (_: VoysisError) in
-            errorReceived.fulfill()
+        let callback = { (call: String) in
+            if call == "failure" {
+                errorReceived.fulfill()
+            }
         }
-        voysis.startAudioQuery(context: context, eventHandler: { (_: Event) in }, errorHandler: errorHandler)
+        callbackMock.callback = callback
+        voysis.startAudioQuery(context: context, callback: callbackMock)
         waitForExpectations(timeout: 5, handler: nil)
     }
 
@@ -106,12 +102,13 @@ class VoysisTests: XCTestCase {
         audioRecordManager.onDataResponse = { (data: Data, isRecording: Bool) in
         }
         let completed = expectation(description: "completed")
-        let voysisEvent = { (event: Event) in
-            if (event.type == EventType.recordingFinished) {
+        let callback = { (call: String) in
+            if (call == "vadReceived") {
                 completed.fulfill()
             }
         }
-        voysis.startAudioQuery(context: context, eventHandler: voysisEvent, errorHandler: { (_: VoysisError) in })
+        callbackMock.callback = callback
+        voysis.startAudioQuery(context: context, callback: callbackMock)
         XCTAssertEqual(voysis.state, State.busy)
         waitForExpectations(timeout: 5, handler: nil)
     }
@@ -125,7 +122,7 @@ class VoysisTests: XCTestCase {
             }
         }
         client.stringEvent = token
-        voysis.startAudioQuery(context: context, eventHandler: { (_: Event) in }, errorHandler: { (_: VoysisError) in })
+        voysis.startAudioQuery(context: context, callback: callbackMock)
         waitForExpectations(timeout: 5, handler: nil)
     }
 }

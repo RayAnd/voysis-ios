@@ -1,4 +1,4 @@
-public struct Event {
+internal struct Event {
     public var response: ApiResponse?
     public let type: EventType
 }

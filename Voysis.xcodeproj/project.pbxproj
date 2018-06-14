@@ -21,19 +21,44 @@
 		654C5E2A207B7D99002FF5E9 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652D0461206D287200DEA61F /* Starscream.framework */; };
 		654C5E2D207B7E07002FF5E9 /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 654C5E2C207B7E07002FF5E9 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		654C5E2E207B7FD8002FF5E9 /* Voysis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D499B220039AD6005AFF23 /* Voysis.framework */; };
-		659E8F9B202C600E00B910C7 /* HeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED711D62BDC6CDE44083F /* HeaderTests.swift */; };
+		6588B3FD20C6ECC30030445A /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A10200515E3005AFF23 /* EventType.swift */; };
+		6588B3FE20C6ECC30030445A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A122005163F005AFF23 /* Event.swift */; };
+		6588B3FF20C6ECC30030445A /* VoysisError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED4B973DD77DA54D742C7 /* VoysisError.swift */; };
+		6588B40020C6ECC30030445A /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED948E979A37674EF9F6B /* Callback.swift */; };
+		6588B40120C6ECC30030445A /* CallbackDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED7BC04D2297004C933D8 /* CallbackDispatcher.swift */; };
+		6588B40220C6ECC30030445A /* SocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D499FA2004FD6A005AFF23 /* SocketResponse.swift */; };
+		6588B40320C6ECC30030445A /* SocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A08200506A3005AFF23 /* SocketRequest.swift */; };
+		6588B40420C6ECC30030445A /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED071C98AA7D34E56437C /* Context.swift */; };
+		6588B40520C6ECC30030445A /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A1C20051F2B005AFF23 /* AudioRecorder.swift */; };
+		6588B40620C6ECC30030445A /* AudioRecorderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A2C200626C2005AFF23 /* AudioRecorderImpl.swift */; };
+		6588B40720C6ECC30030445A /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6530A35C2063E2AE009B33E7 /* AudioPlayer.swift */; };
+		6588B40820C6ECC30030445A /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A212005362F005AFF23 /* Client.swift */; };
+		6588B40920C6ECC30030445A /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED054AF35482350532C57 /* ServiceProvider.swift */; };
+		6588B40A20C6ECC30030445A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED40339BD1D764EDBEE3D /* Service.swift */; };
+		6588B40B20C6ECC30030445A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* Config.swift */; };
+		6588B40C20C6ECC30030445A /* ServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A2E200627F8005AFF23 /* ServiceImpl.swift */; };
+		6588B40D20C6ECC30030445A /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED91D71111AA13FD3B671 /* Converter.swift */; };
+		6588B40E20C6ECC30030445A /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */; };
+		6588B40F20C6ECC30030445A /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED342823D42A604203DD4 /* TokenManager.swift */; };
+		6588B41020C6ECC30030445A /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED26DBFCEB0597E881AB2 /* FeedbackManager.swift */; };
+		6588B41220C6ECC30030445A /* VoysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED8E85917F9571047A2E6 /* VoysisTests.swift */; };
+		6588B41320C6ECC30030445A /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECF4F6202A0DB900DB1EF1 /* ClientMock.swift */; };
+		6588B41420C6ECC30030445A /* AudioRecordManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECF4F8202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift */; };
+		6588B41520C6ECC30030445A /* HeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED711D62BDC6CDE44083F /* HeaderTests.swift */; };
+		6588B41620C6ECC30030445A /* CallbackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED669E18E2D658D25CE2F /* CallbackMock.swift */; };
+		6588B41820C6EDF90030445A /* VoysisTests.xctest in Sources */ = {isa = PBXBuildFile; fileRef = 65D499BB20039AD6005AFF23 /* VoysisTests.xctest */; };
 		65C4AE0A202487FF008F2A88 /* voysis_on.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65C4AE09202487FF008F2A88 /* voysis_on.mp3 */; };
-		65ECF4F32029F86900DB1EF1 /* VoysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED8E85917F9571047A2E6 /* VoysisTests.swift */; };
-		65ECF4F7202A0DB900DB1EF1 /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECF4F6202A0DB900DB1EF1 /* ClientMock.swift */; };
-		65ECF4F9202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECF4F8202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift */; };
 		F32ED083A6CB664260DCB4FD /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED054AF35482350532C57 /* ServiceProvider.swift */; };
 		F32ED190FD09286815609D71 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED91D71111AA13FD3B671 /* Converter.swift */; };
 		F32ED1DACC56B028C631B18F /* voysis_off.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */; };
+		F32ED23A8E636C5D8703BFA0 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED948E979A37674EF9F6B /* Callback.swift */; };
 		F32ED27475F44319E8F21CD4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED40339BD1D764EDBEE3D /* Service.swift */; };
 		F32ED2C3487901AA33E01ABB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* Config.swift */; };
 		F32ED46EFB3BA8F54FCBF676 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED342823D42A604203DD4 /* TokenManager.swift */; };
 		F32EDB3A98275ED46A056A22 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */; };
+		F32EDD4274E52FD1CCEF3ABD /* CallbackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED669E18E2D658D25CE2F /* CallbackMock.swift */; };
 		F32EDE5AFC41237F50725DBD /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = F32EDBBDAC0847C4752E6BFA /* .travis.yml */; };
+		F32EDF3C829634724CD7412E /* CallbackDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED7BC04D2297004C933D8 /* CallbackDispatcher.swift */; };
 		F32EDF9CF5F43108E808C99C /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED26DBFCEB0597E881AB2 /* FeedbackManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,9 +111,12 @@
 		F32ED4B973DD77DA54D742C7 /* VoysisError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoysisError.swift; sourceTree = "<group>"; };
 		F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voysis_off.mp3; sourceTree = "<group>"; };
 		F32ED571BE7F40936814F683 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		F32ED669E18E2D658D25CE2F /* CallbackMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallbackMock.swift; sourceTree = "<group>"; };
 		F32ED711D62BDC6CDE44083F /* HeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTests.swift; sourceTree = "<group>"; };
+		F32ED7BC04D2297004C933D8 /* CallbackDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallbackDispatcher.swift; sourceTree = "<group>"; };
 		F32ED8E85917F9571047A2E6 /* VoysisTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoysisTests.swift; sourceTree = "<group>"; };
 		F32ED91D71111AA13FD3B671 /* Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		F32ED948E979A37674EF9F6B /* Callback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Callback.swift; sourceTree = "<group>"; };
 		F32EDBBDAC0847C4752E6BFA /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .travis.yml; sourceTree = "<group>"; };
 		F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +191,7 @@
 				65ECF4F6202A0DB900DB1EF1 /* ClientMock.swift */,
 				65ECF4F8202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift */,
 				F32ED711D62BDC6CDE44083F /* HeaderTests.swift */,
+				F32ED669E18E2D658D25CE2F /* CallbackMock.swift */,
 			);
 			path = VoysisTests;
 			sourceTree = "<group>";
@@ -212,6 +241,8 @@
 				65D49A10200515E3005AFF23 /* EventType.swift */,
 				65D49A122005163F005AFF23 /* Event.swift */,
 				F32ED4B973DD77DA54D742C7 /* VoysisError.swift */,
+				F32ED948E979A37674EF9F6B /* Callback.swift */,
+				F32ED7BC04D2297004C933D8 /* CallbackDispatcher.swift */,
 			);
 			path = events;
 			sourceTree = "<group>";
@@ -377,6 +408,9 @@
 				F32ED2C3487901AA33E01ABB /* Config.swift in Sources */,
 				F32ED46EFB3BA8F54FCBF676 /* TokenManager.swift in Sources */,
 				F32EDF9CF5F43108E808C99C /* FeedbackManager.swift in Sources */,
+				F32ED23A8E636C5D8703BFA0 /* Callback.swift in Sources */,
+				F32EDF3C829634724CD7412E /* CallbackDispatcher.swift in Sources */,
+				F32EDD4274E52FD1CCEF3ABD /* CallbackMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,10 +418,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				659E8F9B202C600E00B910C7 /* HeaderTests.swift in Sources */,
-				65ECF4F32029F86900DB1EF1 /* VoysisTests.swift in Sources */,
-				65ECF4F7202A0DB900DB1EF1 /* ClientMock.swift in Sources */,
-				65ECF4F9202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift in Sources */,
+				6588B41820C6EDF90030445A /* VoysisTests.xctest in Sources */,
+				6588B3FD20C6ECC30030445A /* EventType.swift in Sources */,
+				6588B3FE20C6ECC30030445A /* Event.swift in Sources */,
+				6588B3FF20C6ECC30030445A /* VoysisError.swift in Sources */,
+				6588B40020C6ECC30030445A /* Callback.swift in Sources */,
+				6588B40120C6ECC30030445A /* CallbackDispatcher.swift in Sources */,
+				6588B40220C6ECC30030445A /* SocketResponse.swift in Sources */,
+				6588B40320C6ECC30030445A /* SocketRequest.swift in Sources */,
+				6588B40420C6ECC30030445A /* Context.swift in Sources */,
+				6588B40520C6ECC30030445A /* AudioRecorder.swift in Sources */,
+				6588B40620C6ECC30030445A /* AudioRecorderImpl.swift in Sources */,
+				6588B40720C6ECC30030445A /* AudioPlayer.swift in Sources */,
+				6588B40820C6ECC30030445A /* Client.swift in Sources */,
+				6588B40920C6ECC30030445A /* ServiceProvider.swift in Sources */,
+				6588B40A20C6ECC30030445A /* Service.swift in Sources */,
+				6588B40B20C6ECC30030445A /* Config.swift in Sources */,
+				6588B40C20C6ECC30030445A /* ServiceImpl.swift in Sources */,
+				6588B40D20C6ECC30030445A /* Converter.swift in Sources */,
+				6588B40E20C6ECC30030445A /* WebSocketClient.swift in Sources */,
+				6588B40F20C6ECC30030445A /* TokenManager.swift in Sources */,
+				6588B41020C6ECC30030445A /* FeedbackManager.swift in Sources */,
+				6588B41220C6ECC30030445A /* VoysisTests.swift in Sources */,
+				6588B41320C6ECC30030445A /* ClientMock.swift in Sources */,
+				6588B41420C6ECC30030445A /* AudioRecordManagerMock.swift in Sources */,
+				6588B41520C6ECC30030445A /* HeaderTests.swift in Sources */,
+				6588B41620C6ECC30030445A /* CallbackMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
