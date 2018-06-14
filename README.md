@@ -14,7 +14,7 @@ Documentation
 -------------
 
 
-The full documentation for this library can be found here: [Voysis Developer Documentation](https://developers.voysis.com/docs)
+The full documentation for the voysis api can be found here: [Voysis Developer Documentation](https://developers.voysis.com/docs)
 
 
 Requirements
@@ -31,7 +31,7 @@ Overview
 
 
 The `Voysis.Service` class is the main interface used to process voice recognition requests.
-It is accessed via the static `Voysis.ServiceProvider.make(config: Config(url : "http://ADD-URL.com/websocket"))` method.
+It is accessed via the static `Voysis.ServiceProvider.make(config: Config(url : "http://ADD-URL.com/websocketapi"))` method.
 The sdk communicates to the network using a Websocket connection accomplished using the `Starscream.framework`.
 The iOS core library, `Audio Toolbox Audio Queue Services` is used for recording the users voice.
 
