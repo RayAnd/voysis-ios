@@ -2,15 +2,15 @@ import AVFoundation
 
 internal class ServiceImpl: Service {
     private let session = AVAudioSession.sharedInstance()
-    private let dispatchQueue: DispatchQueue
     private let feedbackManager: FeedbackManager
+    private let dispatchQueue: DispatchQueue
     private let tokenManager: TokenManager
     private let audioQueue: OperationQueue
-    private let converter = Converter()
     private let recorder: AudioRecorder
     private let client: Client
     private let userId: String?
 
+    private var finishedReason: FinishedReason?
     private var byteSender: ByteSender?
     private var maxBytes = 320000
 
@@ -50,6 +50,7 @@ internal class ServiceImpl: Service {
     }
 
     public func finish() {
+        state = .processing
         stop(.manualStop, Data([4]))
     }
 
@@ -97,7 +98,7 @@ internal class ServiceImpl: Service {
     }
 
     private func performAudioQuery<C: Context, T: Callback>(_ context: C?, _ dispatcher: CallbackDispatcher<T>) {
-        state = .busy
+        state = .recording
         startRecording(dispatcher)
         if tokenManager.tokenIsValid() {
             startAudioQuery(context, dispatcher)
@@ -125,15 +126,12 @@ internal class ServiceImpl: Service {
         byteSender = nil
         var bytesRead = 0
         recorder.start {
-            self.audioCallback($0, $1, &bytesRead, callback)
+            self.audioCallback($0, &bytesRead, callback)
         }
         callback.recordingStarted()
     }
 
-    private func audioCallback<T: Callback>(_ data: Data, _ finishedReason: FinishedReason?, _ bytesRead: inout Int, _ dispatcher: CallbackDispatcher<T>) {
-        if finishedReason != nil {
-            dispatcher.recordingFinished(finishedReason!)
-        }
+    private func audioCallback<T: Callback>(_ data: Data, _ bytesRead: inout Int, _ dispatcher: CallbackDispatcher<T>) {
         guard !data.isEmpty else {
             return
         }
@@ -143,10 +141,15 @@ internal class ServiceImpl: Service {
         if bytesRead >= maxBytes {
             finish()
         }
+        if finishedReason != nil && state == .processing {
+            dispatcher.recordingFinished(finishedReason!)
+            finishedReason = nil
+        }
     }
 
     private func stop(_ reason: FinishedReason, _ data: Data? = nil) {
-        recorder.stop(reason: reason)
+        finishedReason = reason
+        recorder.stop()
         queueAudio(data)
     }
 
@@ -168,6 +171,7 @@ internal class ServiceImpl: Service {
             let event = try Converter.decodeResponse(json: data, context: T.C.self, entity: T.E.self)
             switch event.type {
             case .vadReceived:
+                state = .processing
                 stop(.vadReceived)
             case .audioQueryCompleted:
                 state = .idle

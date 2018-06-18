@@ -4,9 +4,8 @@ import AVFoundation
 
 class AudioRecorderImpl: AudioRecorder {
 
-    internal var onDataResponse: ((Data, FinishedReason?) -> Void)?
+    internal var onDataResponse: ((Data) -> Void)?
     private var format = AudioStreamBasicDescription()
-    private var finishedReason: FinishedReason?
     private var queue: AudioQueueRef?
     private var player: AudioPlayer
     private var inProgress = false
@@ -21,7 +20,7 @@ class AudioRecorderImpl: AudioRecorder {
         setFormatDescription()
     }
 
-    public func start(onDataResponse: @escaping ((Data, FinishedReason?) -> Void)) {
+    public func start(onDataResponse: @escaping ((Data) -> Void)) {
         guard !inProgress else {
             return
         }
@@ -39,11 +38,10 @@ class AudioRecorderImpl: AudioRecorder {
         }
     }
 
-    public func stop(reason: FinishedReason) {
+    public func stop() {
         guard inProgress else {
             return
         }
-        self.finishedReason = reason
 
         guard let queue = queue else {
             return
@@ -89,8 +87,7 @@ class AudioRecorderImpl: AudioRecorder {
         let buffer = bufferRef.pointee
         autoreleasepool {
             let data = Data(bytes: buffer.mAudioData, count: Int(buffer.mAudioDataByteSize))
-            audioRecorder.onDataResponse?(data, audioRecorder.finishedReason)
-            audioRecorder.finishedReason = nil
+            audioRecorder.onDataResponse?(data)
         }
 
         // return early if recording is stopped

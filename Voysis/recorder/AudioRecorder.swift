@@ -5,8 +5,8 @@ public protocol AudioRecorder {
     /**
      Parameter onDataResponse: called when audio buffer fills.
      */
-    func start(onDataResponse: @escaping ((Data, FinishedReason?) -> Void))
+    func start(onDataResponse: @escaping ((Data) -> Void))
 
     ///stop recording audio
-    func stop(reason : FinishedReason)
+    func stop()
 }
