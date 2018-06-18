@@ -50,7 +50,6 @@ internal class ServiceImpl: Service {
     }
 
     public func finish() {
-        state = .processing
         stop(.manualStop, Data([4]))
     }
 
@@ -148,6 +147,7 @@ internal class ServiceImpl: Service {
     }
 
     private func stop(_ reason: FinishedReason, _ data: Data? = nil) {
+        state = .processing
         finishedReason = reason
         recorder.stop()
         queueAudio(data)
@@ -171,7 +171,6 @@ internal class ServiceImpl: Service {
             let event = try Converter.decodeResponse(json: data, context: T.C.self, entity: T.E.self)
             switch event.type {
             case .vadReceived:
-                state = .processing
                 stop(.vadReceived)
             case .audioQueryCompleted:
                 state = .idle
