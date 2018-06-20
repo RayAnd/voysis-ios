@@ -4,7 +4,8 @@ public typealias FeedbackHandler = (Int) -> Void
 
 public enum State {
     case idle
-    case busy
+    case recording
+    case processing
 }
 
 public protocol Service {

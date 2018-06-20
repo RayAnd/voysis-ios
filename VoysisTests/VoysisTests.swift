@@ -44,8 +44,10 @@ class VoysisTests: XCTestCase {
         let vadReceived = expectation(description: "vad received")
         client.stringEvent = token
         client.setupStreamEvent = "{\"type\":\"notification\",\"notificationType\":\"vad_stop\"}"
-        audioRecordManager.onDataResponse = { (data: Data, isRecording: Bool) in
+        audioRecordManager.onDataResponse = { (data: Data) in
+
         }
+        audioRecordManager.stopWithData = true
         let callback = { (call: String) in
             if (call == "vadReceived") {
                 vadReceived.fulfill()
@@ -70,10 +72,15 @@ class VoysisTests: XCTestCase {
     }
 
     func testCreateAndManualFinishRequest() {
-        let endData = expectation(description: "4 bytes sent at end")
+        let endData = expectation(description: "one bytes sent at end")
+        let startData = expectation(description: "two bytes sent at end")
+        audioRecordManager.stopWithData = false
         client.dataCallback = { ( data: Data) in
-            XCTAssertTrue(data.count == 1)
-            endData.fulfill()
+            if data.count == 2 {
+                startData.fulfill()
+            } else if data.count == 1 {
+                endData.fulfill()
+            }
         }
         client.stringEvent = token
         voysis.startAudioQuery(context: context, callback: callbackMock)
@@ -99,17 +106,19 @@ class VoysisTests: XCTestCase {
         XCTAssertEqual(voysis.state, State.idle)
         client.stringEvent = token
         client.setupStreamEvent = "{\"type\":\"notification\",\"notificationType\":\"vad_stop\"}"
-        audioRecordManager.onDataResponse = { (data: Data, isRecording: Bool) in
+        audioRecordManager.onDataResponse = { (data: Data) in
         }
+        audioRecordManager.stopWithData = true
         let completed = expectation(description: "completed")
         let callback = { (call: String) in
             if (call == "vadReceived") {
                 completed.fulfill()
+                XCTAssertEqual(self.voysis.state, State.processing)
             }
         }
         callbackMock.callback = callback
         voysis.startAudioQuery(context: context, callback: callbackMock)
-        XCTAssertEqual(voysis.state, State.busy)
+        XCTAssertEqual(voysis.state, State.recording)
         waitForExpectations(timeout: 5, handler: nil)
     }
 

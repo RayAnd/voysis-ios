@@ -18,7 +18,9 @@ class ViewController: UIViewController, Callback {
         switch voysis.state {
         case .idle:
             voysis.startAudioQuery(context: self.context, callback: self)
-        case .busy:
+        case .recording:
+            voysis.finish()
+        case .processing:
             voysis.cancel()
         }
     }
