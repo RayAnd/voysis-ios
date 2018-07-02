@@ -27,6 +27,10 @@ public struct RequestEntity<C: Context>: Codable {
 
 public struct AudioQuery: Codable {
     public let mimeType: String? = "audio/pcm"
+
+    public init(){
+
+    }
 }
 
 public struct Headers: Codable {
