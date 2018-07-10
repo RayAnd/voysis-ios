@@ -11,12 +11,9 @@ class StructTests: XCTestCase {
         XCTAssertNotNil(header.userAgent)
     }
 
-}
-
-class QueryTest: XCTestCase {
-
     func testAudioQueryCreation() {
         let query = AudioQuery()
         XCTAssertEqual(query.mimeType, "audio/pcm;bits=16;rate=16000")
     }
+
 }
