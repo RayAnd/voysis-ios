@@ -44,7 +44,7 @@
 		6588B41220C6ECC30030445A /* VoysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED8E85917F9571047A2E6 /* VoysisTests.swift */; };
 		6588B41320C6ECC30030445A /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECF4F6202A0DB900DB1EF1 /* ClientMock.swift */; };
 		6588B41420C6ECC30030445A /* AudioRecordManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECF4F8202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift */; };
-		6588B41520C6ECC30030445A /* HeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED711D62BDC6CDE44083F /* HeaderTests.swift */; };
+		6588B41520C6ECC30030445A /* StructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED711D62BDC6CDE44083F /* StructTests.swift */; };
 		6588B41620C6ECC30030445A /* CallbackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED669E18E2D658D25CE2F /* CallbackMock.swift */; };
 		6588B41820C6EDF90030445A /* VoysisTests.xctest in Sources */ = {isa = PBXBuildFile; fileRef = 65D499BB20039AD6005AFF23 /* VoysisTests.xctest */; };
 		65C4AE0A202487FF008F2A88 /* voysis_on.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65C4AE09202487FF008F2A88 /* voysis_on.mp3 */; };
@@ -112,7 +112,7 @@
 		F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voysis_off.mp3; sourceTree = "<group>"; };
 		F32ED571BE7F40936814F683 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		F32ED669E18E2D658D25CE2F /* CallbackMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallbackMock.swift; sourceTree = "<group>"; };
-		F32ED711D62BDC6CDE44083F /* HeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTests.swift; sourceTree = "<group>"; };
+		F32ED711D62BDC6CDE44083F /* StructTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructTests.swift; sourceTree = "<group>"; };
 		F32ED7BC04D2297004C933D8 /* CallbackDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallbackDispatcher.swift; sourceTree = "<group>"; };
 		F32ED8E85917F9571047A2E6 /* VoysisTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoysisTests.swift; sourceTree = "<group>"; };
 		F32ED91D71111AA13FD3B671 /* Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 				F32ED8E85917F9571047A2E6 /* VoysisTests.swift */,
 				65ECF4F6202A0DB900DB1EF1 /* ClientMock.swift */,
 				65ECF4F8202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift */,
-				F32ED711D62BDC6CDE44083F /* HeaderTests.swift */,
+				F32ED711D62BDC6CDE44083F /* StructTests.swift */,
 				F32ED669E18E2D658D25CE2F /* CallbackMock.swift */,
 			);
 			path = VoysisTests;
@@ -442,7 +442,7 @@
 				6588B41220C6ECC30030445A /* VoysisTests.swift in Sources */,
 				6588B41320C6ECC30030445A /* ClientMock.swift in Sources */,
 				6588B41420C6ECC30030445A /* AudioRecordManagerMock.swift in Sources */,
-				6588B41520C6ECC30030445A /* HeaderTests.swift in Sources */,
+				6588B41520C6ECC30030445A /* StructTests.swift in Sources */,
 				6588B41620C6ECC30030445A /* CallbackMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
