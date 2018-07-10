@@ -27,6 +27,12 @@ public struct RequestEntity<C: Context>: Codable {
 
 public struct AudioQuery: Codable {
     public let mimeType: String? = "audio/pcm"
+    public let bits: String? = "16000"
+    public let rate: String? = "16"
+
+    public init(){
+
+    }
 }
 
 public struct Headers: Codable {
