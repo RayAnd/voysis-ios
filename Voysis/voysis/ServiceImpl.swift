@@ -74,7 +74,7 @@ internal class ServiceImpl: Service {
         do {
             let requestEntity = RequestEntity(userId: userId, context: nil as EmptyContext?)
             let request = SocketRequest(entity: requestEntity, method: "POST", headers: Headers(token: tokenManager.refreshToken), restURI: "/tokens")
-            let entity = try Converter.encodeRequest(request)
+            let entity = try encodeRequest(request)
             client.sendString(entity: entity!, onMessage: tokenManager.onTokenMessage, onError: tokenManager.onError)
         } catch {
             if let error = error as? VoysisError {
@@ -96,7 +96,7 @@ internal class ServiceImpl: Service {
     private func sendFeedback(feedback: FeedbackData, queryId: String) {
         do {
             let request = SocketRequest(entity: feedback, method: "PATCH", headers: Headers(token: tokenManager.token!.token), restURI: "/queries/\(queryId)/feedback")
-            let entity = try Converter.encodeRequest(request)
+            let entity = try encodeRequest(request)
             client.sendString(entity: entity!, onMessage: feedbackManager.onMessage, onError: feedbackManager.onError)
         } catch {
             if let error = error as? VoysisError {
@@ -116,7 +116,7 @@ internal class ServiceImpl: Service {
 
     private func startTextQuery<C: Context, T: Callback>(_ context: C?, _ text: String, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            if let request = try Converter.encodeRequest(text: text, context: context, userId: userId, token: tokenManager.token!.token) {
+            if let request = try encodeRequest(text: text, context: context, userId: userId, token: tokenManager.token!.token) {
                 client.sendString(entity: request, onMessage: { self.onTextMessage($0, dispatcher) }, onError: { self.onError($0, dispatcher) })
             }
         } catch {
@@ -136,7 +136,7 @@ internal class ServiceImpl: Service {
 
     private func startAudioQuery<C: Context, T: Callback>(_ context: C?, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            if let request = try Converter.encodeRequest(context: context, userId: userId, token: tokenManager.token!.token) {
+            if let request = try encodeRequest(context: context, userId: userId, token: tokenManager.token!.token) {
                 byteSender = client.setupAudioStream(entity: request, onMessage: { self.onAudioMessage($0, dispatcher) }, onError: { self.onError($0, dispatcher) })
                 audioQueue.isSuspended = false
             }
@@ -194,7 +194,7 @@ internal class ServiceImpl: Service {
 
     private func onAudioMessage<T: Callback>(_ data: String, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            let event = try Converter.decodeResponse(json: data, context: T.C.self, entity: T.E.self)
+            let event = try decodeResponse(json: data, context: T.C.self, entity: T.E.self)
             switch event.type {
             case .vadReceived:
                 stop(.vadReceived)
@@ -214,7 +214,7 @@ internal class ServiceImpl: Service {
 
     private func onTextMessage<T: Callback>(_ data: String, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            let streamResponse = try Converter.decodeResponse(Response<StreamResponse<T.C, T.E>>.self, data)
+            let streamResponse = try decodeResponse(Response<StreamResponse<T.C, T.E>>.self, data)
             state = .idle
             dispatcher.success(streamResponse.entity!)
         } catch {

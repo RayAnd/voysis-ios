@@ -12,7 +12,7 @@ internal class FeedbackManager {
 
     func onMessage(data: String) {
         do {
-            let response = try Converter.decodeResponse(Response<EmptyResponse>.self, data)
+            let response = try decodeResponse(Response<EmptyResponse>.self, data)
             switch response.responseCode! {
             case 200...299:
                 dispatchQueue.async {
