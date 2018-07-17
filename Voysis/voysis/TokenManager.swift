@@ -15,7 +15,7 @@ internal class TokenManager {
 
     func onTokenMessage(data: String) {
         do {
-            let tokenResponse = try decodeResponse(Response<Token>.self, data)
+            let tokenResponse = try Converter.decodeResponse(Response<Token>.self, data)
             let responseCode = tokenResponse.responseCode
             if responseCode == 403 || responseCode == 401 {
                 onError(VoysisError.unauthorized)
