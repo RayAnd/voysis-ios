@@ -3,6 +3,7 @@ import XCTest
 
 class VoysisTests: XCTestCase {
 
+    let textResponse = "{\"type\":\"response\",\"entity\":{\"id\":\"1\",\"locale\":\"en-US\",\"conversationId\":\"1\",\"queryType\":\"text\",\"textQuery\":{\"text\":\"go to my cart\"},\"intent\":\"goToCart\",\"reply\":{\"text\":\"Here's what's in your cart\"},\"entities\":{\"products\":[]},\"_links\":{\"self\":{\"href\":\"/queries/1\"},\"audio\":{\"href\":\"/queries/1/audio\"}},\"_embedded\":{}},\"requestId\":\"0\",\"responseCode\":201,\"responseMessage\":\"Created\"}"
     let token = "{\"type\":\"response\",\"entity\":{\"token\":\"1\",\"expiresAt\":\"2018-04-17T14:14:06.701Z\"},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
     let feedback = "{\"type\":\"response\",\"entity\":{},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
 
@@ -11,14 +12,14 @@ class VoysisTests: XCTestCase {
     private var client: ClientMock!
     private var context: TestContext?
     private var tokenManager: TokenManager!
-    private var resreshToken = "token"
+    private var refreshToken = "token"
     private var callbackMock = CallbackMock()
 
     override func setUp() {
         super.setUp()
         client = ClientMock()
         audioRecordManager = AudioRecordManagerMock()
-        tokenManager = TokenManager(refreshToken: resreshToken, dispatchQueue: DispatchQueue.main)
+        tokenManager = TokenManager(refreshToken: refreshToken, dispatchQueue: DispatchQueue.main)
         let feedbackManager = FeedbackManager(DispatchQueue.main)
         voysis = ServiceImpl(client: client,
                 recorder: audioRecordManager,
@@ -42,7 +43,7 @@ class VoysisTests: XCTestCase {
 
     func testCreateAndFinishRequestWithVad() {
         let vadReceived = expectation(description: "vad received")
-        client.stringEvent = token
+        client.stringEvent.append(token)
         client.setupStreamEvent = "{\"type\":\"notification\",\"notificationType\":\"vad_stop\"}"
         audioRecordManager.onDataResponse = { (data: Data) in
 
@@ -58,10 +59,42 @@ class VoysisTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
 
+    func testSendTextRequest() {
+        let decodedExpectation = expectation(description: "string decoded correctly")
+        client.stringEvent.append(token)
+        client.stringEvent.append(textResponse)
+        let success = { (response: StreamResponse<TestContext, TestEntities>) in
+            if (response.id == "1") {
+                decodedExpectation.fulfill()
+            }
+        }
+        callbackMock.success = success
+        voysis!.sendTextQuery(text: "show me shoes", context: context, callback: callbackMock)
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+
+    func testSendTextRequestDecodingFail() {
+        let failExpectation = expectation(description: "string decoded incorrectly")
+        client.stringEvent.append(token)
+        client.stringEvent.append("fail")
+        let error = { (response: VoysisError) in
+            switch response {
+            case .serializationError:
+                failExpectation.fulfill()
+            default:
+                XCTFail("Wrong Error")
+            }
+        }
+        callbackMock.fail = error
+        voysis!.sendTextQuery(text: "show me shoes", context: context, callback: callbackMock)
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+
     func testSuccessFeedbackResponse() {
         let successResponse = expectation(description: "success")
         tokenManager.token = Token(expiresAt: "2018-04-17T14:14:06.701Z", token: "")
-        client.stringEvent = token
+        client.stringEvent.append(token)
+        client.stringEvent.append(feedback)
         let feedbackHandler = { (response: Int) in
             if response == 200 {
                 successResponse.fulfill()
@@ -75,6 +108,7 @@ class VoysisTests: XCTestCase {
         let endData = expectation(description: "one bytes sent at end")
         let startData = expectation(description: "two bytes sent at end")
         audioRecordManager.stopWithData = false
+        client.stringEvent.append(token)
         client.dataCallback = { ( data: Data) in
             if data.count == 2 {
                 startData.fulfill()
@@ -82,7 +116,6 @@ class VoysisTests: XCTestCase {
                 endData.fulfill()
             }
         }
-        client.stringEvent = token
         voysis.startAudioQuery(context: context, callback: callbackMock)
         voysis.finish()
         waitForExpectations(timeout: 5, handler: nil)
@@ -92,19 +125,23 @@ class VoysisTests: XCTestCase {
     func testErrorResponse() {
         let errorReceived = expectation(description: "error received")
         client.error = VoysisError.unknownError
-        let callback = { (call: String) in
-            if call == "failure" {
+        client.stringEvent.append(token)
+        let error = { (response: VoysisError) in
+            switch response {
+            case .unknownError:
                 errorReceived.fulfill()
+            default:
+                XCTFail("Wrong Error")
             }
         }
-        callbackMock.callback = callback
+        callbackMock.fail = error
         voysis.startAudioQuery(context: context, callback: callbackMock)
         waitForExpectations(timeout: 5, handler: nil)
     }
 
     func testStateChanges() {
         XCTAssertEqual(voysis.state, State.idle)
-        client.stringEvent = token
+        client.stringEvent.append(token)
         client.setupStreamEvent = "{\"type\":\"notification\",\"notificationType\":\"vad_stop\"}"
         audioRecordManager.onDataResponse = { (data: Data) in
         }
@@ -130,7 +167,7 @@ class VoysisTests: XCTestCase {
                 completed.fulfill()
             }
         }
-        client.stringEvent = token
+        client.stringEvent.append(token)
         voysis.startAudioQuery(context: context, callback: callbackMock)
         waitForExpectations(timeout: 5, handler: nil)
     }

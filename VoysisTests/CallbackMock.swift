@@ -9,13 +9,15 @@ class TestEntities: Entities {
 class CallbackMock: Callback {
 
     var callback: ((String) -> Void)?
+    var success : ((StreamResponse<TestContext, TestEntities>) -> Void)?
+    var fail : ((VoysisError) -> Void)?
 
     func success(response: StreamResponse<TestContext, TestEntities>) {
-        callback?("success")
+        success?(response)
     }
 
     func failure(error: VoysisError) {
-        callback?("failure")
+        fail?(error)
     }
 
     func recordingStarted() {

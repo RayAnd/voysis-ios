@@ -29,14 +29,18 @@ public protocol Service {
      for more information on the websocket api calls see https://developers.voysis.com/docs
 
      - Parameter context:(optional) the context object from the previous response. Nil if is first request.
-     - Parameter eventHandler: called whenever event returns from socket.
-           - see `Event.EventType` for all possible return values
-           - this method will call back to the same thread that called `startAudioQuery`
-     - Parameter errorHandler: called if error occurs
-           - see `VoysisError` for all possible error types
-           - this method will call back to the same thread that called `startAudioQuery`
+     - Parameter callback used by client application
      */
     func startAudioQuery<C, E, T: Callback>(context: C?, callback: T) where T.C == C, T.E == E
+
+    /**
+     This method executes a text query.
+
+     - Parameter context (optional) context of previous query
+     - Parameter text query to be executed
+     - Parameter callback used by client application
+    */
+    func sendTextQuery<C, E, T: Callback>(text: String, context: C?, callback: T) where T.C == C, T.E == E
 
     ///Call to manually stop recording audio and process request
     func finish()
