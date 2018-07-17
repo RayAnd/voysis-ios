@@ -54,7 +54,7 @@ public struct QueryResponse: ApiResponse, Codable {
 public struct StreamResponse<C: Context, E: Entities>: ApiResponse, Codable {
     public let id, locale, conversationId, queryType: String?
     public let audioQuery: AudioQuery?
-    public let textQuery: Reply?
+    public let textQuery: TextQuery?
     public let intent: String?
     public let reply: Reply?
     public let entities: E?
@@ -66,7 +66,7 @@ public struct StreamResponse<C: Context, E: Entities>: ApiResponse, Codable {
                 conversationId: String?,
                 queryType: String?,
                 audioQuery: AudioQuery?,
-                textQuery: Reply?,
+                textQuery: TextQuery?,
                 intent: String?,
                 reply: Reply?,
                 entities: E?,

@@ -11,7 +11,21 @@ internal struct Converter {
     static let response = "response"
     static let vadStop = "vad_stop"
 
-    static func encodeRequest<T>(socketRequest: SocketRequest<T>) throws -> String? {
+    static func encodeRequest<C: Context>(text: String? = nil, context: C?, userId : String?, token : String) throws -> String? {
+        let requestEntity = getRequestEntity(text, context, userId)
+        let request = SocketRequest(entity: requestEntity, method: "POST", headers: Headers(token: token), restURI: "/queries")
+        return try encodeRequest(request)
+    }
+
+    static func getRequestEntity<C: Context>(_ text: String?, _ context: C?, _ userId: String? ) -> RequestEntity<C> {
+        if let queryText = text {
+            return RequestEntity(textQuery: TextQuery(text: queryText), queryType: "text", userId: userId, context: context)
+        } else {
+            return RequestEntity(audioQuery: AudioQuery(), queryType: "audio", userId: userId, context: context)
+        }
+    }
+
+    static func encodeRequest<T>(_ socketRequest: SocketRequest<T>) throws -> String? {
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(socketRequest) {
             return String(data: data, encoding: .utf8)?.replacingOccurrences(of: "\\/", with: "/")
@@ -21,17 +35,17 @@ internal struct Converter {
 
     static func decodeResponse<C: Context, E: Entities>(json: String, context: C.Type, entity: E.Type) throws -> Event {
         do {
-            let internalResponse = try Converter.decodeResponse(Response<EmptyResponse>.self, json)
+            let internalResponse = try decodeResponse(Response<EmptyResponse>.self, json)
             switch internalResponse.type {
             case response:
-                let queryResponse = try Converter.decodeResponse(Response<QueryResponse>.self, json)
+                let queryResponse = try decodeResponse(Response<QueryResponse>.self, json)
                 return Event(response: queryResponse.entity, type: .audioQueryCreated)
             case notification:
                 let type = internalResponse.notificationType!
                 if type == vadStop {
                     return Event(response: nil, type: .vadReceived)
                 } else if type == queryComplete {
-                    let streamResponse = try Converter.decodeResponse(Response<StreamResponse<C, E>>.self, json)
+                    let streamResponse = try decodeResponse(Response<StreamResponse<C, E>>.self, json)
                     return Event(response: streamResponse.entity, type: .audioQueryCompleted)
                 } else if type == serverError {
                     throw VoysisError.internalServerError
@@ -51,7 +65,7 @@ internal struct Converter {
         do {
             return try decoder.decode(type.self, from: data.data(using: .utf8)!)
         } catch {
-            throw error
+            throw VoysisError.serializationError(error.localizedDescription)
         }
     }
 

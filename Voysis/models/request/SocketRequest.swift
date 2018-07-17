@@ -18,17 +18,34 @@ struct SocketRequest<E: Codable>: Codable {
 }
 
 public struct RequestEntity<C: Context>: Codable {
-    public let audioQuery: AudioQuery? = AudioQuery()
-    public let queryType: String? = "audio"
     public let locale: String? = "en-US"
+    public let audioQuery: AudioQuery?
+    public let textQuery: TextQuery?
+    public let queryType: String?
     public let userId: String?
     public let context: C?
+
+    init(audioQuery: AudioQuery? = nil, textQuery: TextQuery? = nil, queryType: String? = nil, userId: String? = nil, context: C?) {
+        self.audioQuery = audioQuery
+        self.textQuery = textQuery
+        self.queryType = queryType
+        self.userId = userId
+        self.context = context
+    }
 }
 
 public struct AudioQuery: Codable {
     public let mimeType: String? = "audio/pcm;bits=16;rate=16000"
     public init(){
 
+    }
+}
+
+public struct TextQuery: Codable {
+    let text: String
+
+    public init(text: String) {
+        self.text = text
     }
 }
 

@@ -5,7 +5,7 @@ import Foundation
 class ClientMock: Client {
     var dataCallback: ((Data) -> Void)?
     var setupStreamEvent: String?
-    var stringEvent: String?
+    var stringEvent = [String]()
     var error: VoysisError?
 
     func setupAudioStream(entity: String, onMessage: @escaping ((String) -> Void), onError: @escaping ((VoysisError) -> Void)) -> ((Data) -> Void) {
@@ -18,8 +18,8 @@ class ClientMock: Client {
     }
 
     func sendString(entity: String, onMessage: ((String) -> Void)?, onError: ((VoysisError) -> Void)?) {
-        if (stringEvent != nil) {
-            onMessage?(stringEvent!)
+        if (!stringEvent.isEmpty) {
+            onMessage?(stringEvent.removeFirst())
         } else if (error != nil) {
             onError?(error!)
         }
