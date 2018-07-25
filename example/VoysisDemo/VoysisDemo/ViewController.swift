@@ -6,23 +6,32 @@ class ViewController: UIViewController, Callback {
 
     private let config = Config(url: URL(string: "ws://INSERT_URL/websocketapi")!, refreshToken: "INSERT_TOKEN")
     private lazy var voysis = Voysis.ServiceProvider.make(config: config)
-    private var context: CommerceContext?
-
+    @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var response: UITextView!
+    private var context: CommerceContext?
 
     override func viewWillDisappear(_ animated: Bool) {
         voysis.cancel()
     }
 
-    @IBAction func buttonClicked(_ sender: Any) {
-        switch voysis.state {
-        case .idle:
+    @IBAction func startClicked(_ sender: Any) {
+        if voysis.state == .idle {
             voysis.startAudioQuery(context: self.context, callback: self)
-        case .recording:
-            voysis.finish()
-        case .processing:
-            voysis.cancel()
         }
+    }
+
+    @IBAction func sendClicked(_ sender: Any) {
+        if voysis.state == .idle {
+            voysis.sendTextQuery(text: textField.text!, context: self.context, callback: self)
+        }
+    }
+
+    @IBAction func stopClicked(_ sender: Any) {
+        voysis.finish()
+    }
+
+    @IBAction func cancelClicked(_ sender: Any) {
+        voysis.cancel()
     }
 
     func recordingStarted() {
