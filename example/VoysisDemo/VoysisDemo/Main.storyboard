@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,6 +40,13 @@
                                     <constraint firstAttribute="trailing" secondItem="SmU-Cp-3Mf" secondAttribute="trailing" id="evx-cN-boJ"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xrz-4U-EJx">
+                                <rect key="frame" x="16" y="437" width="359" height="230"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="230" id="0ot-CD-EMB"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFl-si-uDz">
                                 <rect key="frame" x="16" y="468" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -100,11 +108,14 @@
                             <constraint firstItem="WZb-Tu-yeh" firstAttribute="bottom" secondItem="9p6-Ax-msu" secondAttribute="bottom" constant="16" id="1jc-VB-qem"/>
                             <constraint firstItem="WZb-Tu-yeh" firstAttribute="trailing" secondItem="Ze7-OB-Xk2" secondAttribute="trailing" constant="16" id="9L8-DX-RiB"/>
                             <constraint firstItem="9p6-Ax-msu" firstAttribute="top" secondItem="lv9-Gc-v3H" secondAttribute="bottom" constant="8" symbolic="YES" id="ARg-8P-3qF"/>
+                            <constraint firstItem="WZb-Tu-yeh" firstAttribute="trailing" secondItem="Xrz-4U-EJx" secondAttribute="trailing" id="Dc8-fP-yxZ"/>
                             <constraint firstItem="WZb-Tu-yeh" firstAttribute="trailing" secondItem="MLG-m6-gQM" secondAttribute="trailing" id="GhJ-Zw-o9C"/>
                             <constraint firstItem="WZb-Tu-yeh" firstAttribute="trailing" secondItem="lv9-Gc-v3H" secondAttribute="trailing" constant="16" id="I6c-F7-LCy"/>
                             <constraint firstItem="MLG-m6-gQM" firstAttribute="leading" secondItem="WZb-Tu-yeh" secondAttribute="leading" id="Ieb-yY-AA2"/>
+                            <constraint firstItem="Xrz-4U-EJx" firstAttribute="leading" secondItem="1gH-yv-eFh" secondAttribute="leadingMargin" id="OiN-55-skq"/>
                             <constraint firstItem="WZb-Tu-yeh" firstAttribute="trailing" secondItem="9p6-Ax-msu" secondAttribute="trailing" constant="16" id="TTY-7x-Vlr"/>
                             <constraint firstItem="lv9-Gc-v3H" firstAttribute="leading" secondItem="WZb-Tu-yeh" secondAttribute="leading" constant="16" id="YWU-sP-cLi"/>
+                            <constraint firstAttribute="bottom" secondItem="Xrz-4U-EJx" secondAttribute="bottom" id="Z0e-3f-Yq3"/>
                             <constraint firstItem="kFl-si-uDz" firstAttribute="leading" secondItem="WZb-Tu-yeh" secondAttribute="leading" constant="16" id="aJa-ad-NJF"/>
                             <constraint firstItem="DoX-so-iQF" firstAttribute="top" secondItem="kFl-si-uDz" secondAttribute="bottom" constant="8" symbolic="YES" id="gFH-UG-9yB"/>
                             <constraint firstItem="MLG-m6-gQM" firstAttribute="top" secondItem="WZb-Tu-yeh" secondAttribute="top" id="mDk-tT-uJB"/>
