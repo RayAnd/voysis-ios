@@ -15,10 +15,12 @@ public struct Audio: Codable {
     }
 }
 
-public struct Reply: Codable {
+public struct TextWithAudio: Codable {
+    public let audioUri: String?
     public let text: String?
 
-    public init(text: String?) {
+    public init(text: String?, audioUri: String?) {
+        self.audioUri = audioUri
         self.text = text
     }
 }
@@ -55,8 +57,9 @@ public struct StreamResponse<C: Context, E: Entities>: ApiResponse, Codable {
     public let id, locale, conversationId, queryType: String?
     public let audioQuery: AudioQuery?
     public let textQuery: TextQuery?
+    public let reply: TextWithAudio?
+    public let hint: TextWithAudio?
     public let intent: String?
-    public let reply: Reply?
     public let entities: E?
     public let context: C?
     public let _links: Links?
@@ -68,7 +71,8 @@ public struct StreamResponse<C: Context, E: Entities>: ApiResponse, Codable {
                 audioQuery: AudioQuery?,
                 textQuery: TextQuery?,
                 intent: String?,
-                reply: Reply?,
+                reply: TextWithAudio?,
+                hint: TextWithAudio?,
                 entities: E?,
                 context: C?,
                 _links: Links?) {
@@ -80,6 +84,7 @@ public struct StreamResponse<C: Context, E: Entities>: ApiResponse, Codable {
         self.textQuery = textQuery
         self.intent = intent
         self.reply = reply
+        self.hint = hint
         self.entities = entities
         self.context = context
         self._links = _links
