@@ -42,7 +42,7 @@ public struct AudioQuery: Codable {
 }
 
 public struct TextQuery: Codable {
-    let text: String
+    public let text: String
 
     public init(text: String) {
         self.text = text
