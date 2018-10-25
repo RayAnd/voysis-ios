@@ -14,6 +14,7 @@ class VoysisTests: XCTestCase {
     private var tokenManager: TokenManager!
     private var refreshToken = "token"
     private var callbackMock = CallbackMock()
+    private var sessionMock = AudioSessionMock()
 
     override func setUp() {
         super.setUp()
@@ -26,9 +27,9 @@ class VoysisTests: XCTestCase {
                 dispatchQueue: DispatchQueue.main,
                 feedbackManager: feedbackManager,
                 tokenManager: tokenManager,
-                userId: "")
-
-        //closure cannot be null but is not required for most tests.
+                userId: "",
+                session: sessionMock)
+                //closure cannot be null but is not required for most tests.
         client.dataCallback = { ( data: Data) in
         }
     }

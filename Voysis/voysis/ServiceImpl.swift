@@ -1,11 +1,11 @@
 import AVFoundation
 
 internal class ServiceImpl: Service {
-    private let session = AVAudioSession.sharedInstance()
     private let feedbackManager: FeedbackManager
     private let dispatchQueue: DispatchQueue
     private let tokenManager: TokenManager
     private let audioQueue: OperationQueue
+    private let session: AudioSession
     private let recorder: AudioRecorder
     private let client: Client
     private let userId: String?
@@ -21,11 +21,13 @@ internal class ServiceImpl: Service {
          dispatchQueue: DispatchQueue,
          feedbackManager: FeedbackManager,
          tokenManager: TokenManager,
-         userId: String?) {
+         userId: String?,
+         session: AudioSession) {
         self.client = client
         self.recorder = recorder
         self.tokenManager = tokenManager
         self.userId = userId
+        self.session = session
         self.dispatchQueue = dispatchQueue
         self.feedbackManager = feedbackManager
         audioQueue = OperationQueue()
