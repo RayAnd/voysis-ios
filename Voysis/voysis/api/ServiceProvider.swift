@@ -1,4 +1,5 @@
 import Foundation
+import AVFoundation
 
 /**
  The Voysis.ServiceProvider is the sdk's is the primary object for making Voysis.Service instances.
@@ -30,6 +31,7 @@ public struct ServiceProvider {
                 dispatchQueue: callbackQueue,
                 feedbackManager: FeedbackManager(callbackQueue),
                 tokenManager: TokenManager(refreshToken: config.refreshToken, dispatchQueue: callbackQueue),
-                userId: config.userId)
+                userId: config.userId,
+                session: AudioSession())
     }
 }
