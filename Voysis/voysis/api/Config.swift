@@ -1,17 +1,17 @@
 import Foundation
 
-public struct Config {
-    public let refreshToken: String
-    public let userId: String?
-    public let url: URL
+public protocol Config {
 
-    public init(url: URL, refreshToken: String, userId: String? = nil) {
-        self.refreshToken = refreshToken
-        self.userId = userId
-        self.url = url
-    }
+    /**
+     * @return refreshToken
+     */
+    var refreshToken: String { get }
 
-    public init(url: URL) {
-        self.init(url: url, refreshToken: "")
-    }
+    var userId: String? { get }
+
+    /**
+     * @return url used by client for making audio requests.
+     */
+    var url: URL { get }
+
 }
