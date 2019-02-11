@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+
 		650C16722211B48000326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
 		650C16732211B73F00326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
+		650C166F22118D0A00326356 /* voysis_off.wav in Resources */ = {isa = PBXBuildFile; fileRef = 650C166D22118D0900326356 /* voysis_off.wav */; };
+		650C167022118D0A00326356 /* voysis_on.wav in Resources */ = {isa = PBXBuildFile; fileRef = 650C166E22118D0A00326356 /* voysis_on.wav */; };
+
 		6546C12C2077CDCF00C12621 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A10200515E3005AFF23 /* EventType.swift */; };
 		6546C12D2077CDCF00C12621 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A122005163F005AFF23 /* Event.swift */; };
 		6546C12E2077CDCF00C12621 /* VoysisError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED4B973DD77DA54D742C7 /* VoysisError.swift */; };
@@ -52,10 +56,8 @@
 		6588B41620C6ECC30030445A /* CallbackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED669E18E2D658D25CE2F /* CallbackMock.swift */; };
 		6588B41820C6EDF90030445A /* VoysisTests.xctest in Sources */ = {isa = PBXBuildFile; fileRef = 65D499BB20039AD6005AFF23 /* VoysisTests.xctest */; };
 		65A6D9F62181DC1C00EF75C5 /* AudioSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED44C2E3B5693AB7C8F95 /* AudioSessionMock.swift */; };
-		65C4AE0A202487FF008F2A88 /* voysis_on.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65C4AE09202487FF008F2A88 /* voysis_on.mp3 */; };
 		F32ED083A6CB664260DCB4FD /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED054AF35482350532C57 /* ServiceProvider.swift */; };
 		F32ED190FD09286815609D71 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED91D71111AA13FD3B671 /* Converter.swift */; };
-		F32ED1DACC56B028C631B18F /* voysis_off.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */; };
 		F32ED23A8E636C5D8703BFA0 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED948E979A37674EF9F6B /* Callback.swift */; };
 		F32ED27475F44319E8F21CD4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED40339BD1D764EDBEE3D /* Service.swift */; };
 		F32ED2C3487901AA33E01ABB /* DataConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* DataConfig.swift */; };
@@ -91,7 +93,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+
 		650C16712211B48000326356 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		650C166D22118D0900326356 /* voysis_off.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = voysis_off.wav; sourceTree = "<group>"; };
+		650C166E22118D0A00326356 /* voysis_on.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = voysis_on.wav; sourceTree = "<group>"; };
+
 		652D0461206D287200DEA61F /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		6530A35C2063E2AE009B33E7 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		654A5D872181FC1B00E94E5B /* AudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSession.swift; sourceTree = "<group>"; };
@@ -160,6 +166,8 @@
 		65D499A820039AD6005AFF23 = {
 			isa = PBXGroup;
 			children = (
+				650C166D22118D0900326356 /* voysis_off.wav */,
+				650C166E22118D0A00326356 /* voysis_on.wav */,
 				654C5E2C207B7E07002FF5E9 /* Starscream.framework */,
 				65C4AE09202487FF008F2A88 /* voysis_on.mp3 */,
 				65D499B420039AD6005AFF23 /* Voysis */,
@@ -382,8 +390,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65C4AE0A202487FF008F2A88 /* voysis_on.mp3 in Resources */,
-				F32ED1DACC56B028C631B18F /* voysis_off.mp3 in Resources */,
+				650C166F22118D0A00326356 /* voysis_off.wav in Resources */,
+				650C167022118D0A00326356 /* voysis_on.wav in Resources */,
 				F32EDE5AFC41237F50725DBD /* .travis.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,7 +535,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -585,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

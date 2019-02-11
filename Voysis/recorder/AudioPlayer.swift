@@ -15,8 +15,8 @@ public class AudioPlayerImpl: NSObject, AudioPlayer, AVAudioPlayerDelegate {
     private var stopAudioPath: URL?
 
     public convenience override init() {
-        self.init(startAudioPath: Bundle(for: type(of: self)).url(forResource: "voysis_on", withExtension: "mp3")!,
-                stopAudioPath: Bundle(for: type(of: self)).url(forResource: "voysis_off", withExtension: "mp3")!)
+        self.init(startAudioPath: Bundle(for: type(of: self)).url(forResource: "voysis_on", withExtension: "wav")!,
+                stopAudioPath: Bundle(for: type(of: self)).url(forResource: "voysis_off", withExtension: "wav")!)
     }
 
     public init(startAudioPath: URL?, stopAudioPath: URL?) {
