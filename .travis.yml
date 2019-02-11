@@ -14,4 +14,4 @@ before_script:
   - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
 
 script:
-  xcodebuild -scheme VoysisTests -project Voysis.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.0' build test
+  xcodebuild -scheme VoysisTests -project Voysis.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build test
