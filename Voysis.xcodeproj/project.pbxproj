@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650C16722211B48000326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
+		650C16732211B73F00326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
 		6546C12C2077CDCF00C12621 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A10200515E3005AFF23 /* EventType.swift */; };
 		6546C12D2077CDCF00C12621 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A122005163F005AFF23 /* Event.swift */; };
 		6546C12E2077CDCF00C12621 /* VoysisError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED4B973DD77DA54D742C7 /* VoysisError.swift */; };
@@ -37,7 +39,7 @@
 		6588B40820C6ECC30030445A /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A212005362F005AFF23 /* Client.swift */; };
 		6588B40920C6ECC30030445A /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED054AF35482350532C57 /* ServiceProvider.swift */; };
 		6588B40A20C6ECC30030445A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED40339BD1D764EDBEE3D /* Service.swift */; };
-		6588B40B20C6ECC30030445A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* Config.swift */; };
+		6588B40B20C6ECC30030445A /* DataConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* DataConfig.swift */; };
 		6588B40C20C6ECC30030445A /* ServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A2E200627F8005AFF23 /* ServiceImpl.swift */; };
 		6588B40D20C6ECC30030445A /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED91D71111AA13FD3B671 /* Converter.swift */; };
 		6588B40E20C6ECC30030445A /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */; };
@@ -56,7 +58,7 @@
 		F32ED1DACC56B028C631B18F /* voysis_off.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */; };
 		F32ED23A8E636C5D8703BFA0 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED948E979A37674EF9F6B /* Callback.swift */; };
 		F32ED27475F44319E8F21CD4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED40339BD1D764EDBEE3D /* Service.swift */; };
-		F32ED2C3487901AA33E01ABB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* Config.swift */; };
+		F32ED2C3487901AA33E01ABB /* DataConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* DataConfig.swift */; };
 		F32ED46EFB3BA8F54FCBF676 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED342823D42A604203DD4 /* TokenManager.swift */; };
 		F32EDB3A98275ED46A056A22 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */; };
 		F32EDD4274E52FD1CCEF3ABD /* CallbackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED669E18E2D658D25CE2F /* CallbackMock.swift */; };
@@ -89,6 +91,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		650C16712211B48000326356 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		652D0461206D287200DEA61F /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		6530A35C2063E2AE009B33E7 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		654A5D872181FC1B00E94E5B /* AudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSession.swift; sourceTree = "<group>"; };
@@ -115,7 +118,7 @@
 		F32ED44C2E3B5693AB7C8F95 /* AudioSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSessionMock.swift; sourceTree = "<group>"; };
 		F32ED4B973DD77DA54D742C7 /* VoysisError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoysisError.swift; sourceTree = "<group>"; };
 		F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voysis_off.mp3; sourceTree = "<group>"; };
-		F32ED571BE7F40936814F683 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		F32ED571BE7F40936814F683 /* DataConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataConfig.swift; sourceTree = "<group>"; };
 		F32ED669E18E2D658D25CE2F /* CallbackMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallbackMock.swift; sourceTree = "<group>"; };
 		F32ED711D62BDC6CDE44083F /* StructTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructTests.swift; sourceTree = "<group>"; };
 		F32ED7BC04D2297004C933D8 /* CallbackDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallbackDispatcher.swift; sourceTree = "<group>"; };
@@ -270,7 +273,8 @@
 				65D49A212005362F005AFF23 /* Client.swift */,
 				F32ED054AF35482350532C57 /* ServiceProvider.swift */,
 				F32ED40339BD1D764EDBEE3D /* Service.swift */,
-				F32ED571BE7F40936814F683 /* Config.swift */,
+				F32ED571BE7F40936814F683 /* DataConfig.swift */,
+				650C16712211B48000326356 /* Config.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -414,8 +418,9 @@
 				F32ED27475F44319E8F21CD4 /* Service.swift in Sources */,
 				F32ED190FD09286815609D71 /* Converter.swift in Sources */,
 				F32EDB3A98275ED46A056A22 /* WebSocketClient.swift in Sources */,
-				F32ED2C3487901AA33E01ABB /* Config.swift in Sources */,
+				F32ED2C3487901AA33E01ABB /* DataConfig.swift in Sources */,
 				F32ED46EFB3BA8F54FCBF676 /* TokenManager.swift in Sources */,
+				650C16722211B48000326356 /* Config.swift in Sources */,
 				F32EDF9CF5F43108E808C99C /* FeedbackManager.swift in Sources */,
 				F32ED23A8E636C5D8703BFA0 /* Callback.swift in Sources */,
 				F32EDF3C829634724CD7412E /* CallbackDispatcher.swift in Sources */,
@@ -427,6 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650C16732211B73F00326356 /* Config.swift in Sources */,
 				654A5D8A2181FCED00E94E5B /* AudioSession.swift in Sources */,
 				65A6D9F62181DC1C00EF75C5 /* AudioSessionMock.swift in Sources */,
 				6588B41820C6EDF90030445A /* VoysisTests.xctest in Sources */,
@@ -444,7 +450,7 @@
 				6588B40820C6ECC30030445A /* Client.swift in Sources */,
 				6588B40920C6ECC30030445A /* ServiceProvider.swift in Sources */,
 				6588B40A20C6ECC30030445A /* Service.swift in Sources */,
-				6588B40B20C6ECC30030445A /* Config.swift in Sources */,
+				6588B40B20C6ECC30030445A /* DataConfig.swift in Sources */,
 				6588B40C20C6ECC30030445A /* ServiceImpl.swift in Sources */,
 				6588B40D20C6ECC30030445A /* Converter.swift in Sources */,
 				6588B40E20C6ECC30030445A /* WebSocketClient.swift in Sources */,

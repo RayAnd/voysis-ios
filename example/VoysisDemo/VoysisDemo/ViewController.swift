@@ -4,7 +4,7 @@ import AVFoundation
 
 class ViewController: UIViewController, Callback {
 
-    private let config = Config(url: URL(string: "ws://INSERT_URL/websocketapi")!, refreshToken: "INSERT_TOKEN")
+    private let config = DataConfig(url: URL(string: "ws://INSERT_URL/websocketapi")!, refreshToken: "INSERT_TOKEN")
     private lazy var voysis = Voysis.ServiceProvider.make(config: config)
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var response: UITextView!
