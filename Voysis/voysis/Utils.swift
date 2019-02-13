@@ -3,7 +3,7 @@ import Foundation
 class Utils {
     static func generateAudioRecordParams(_ config: Config, _ session: AudioSession) -> AudioRecordParams {
         var sampleRate = session.getNativeSampleRate()
-        var readBufferSize = 4000.0
+        var readBufferSize = 4096.0
         if let rate = config.audioRecordParams?.sampleRate {
             sampleRate = rate
         }
