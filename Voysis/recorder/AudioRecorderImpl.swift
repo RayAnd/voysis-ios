@@ -116,11 +116,10 @@ class AudioRecorderImpl: AudioRecorder {
 
         // allocate and enqueue buffers
         let numBuffers = 2
-        let bufferSize = UInt32(audioParams.readBufferSize!)
         for _ in 0..<numBuffers {
             let bufferRef = UnsafeMutablePointer<AudioQueueBufferRef?>.allocate(capacity: 1)
             bufferRefs.append(bufferRef)
-            AudioQueueAllocateBuffer(queue, bufferSize, bufferRef)
+            AudioQueueAllocateBuffer(queue, audioParams.readBufferSize!, bufferRef)
             if let buffer = bufferRef.pointee {
                 AudioQueueEnqueueBuffer(queue, buffer, 0, nil)
             }
