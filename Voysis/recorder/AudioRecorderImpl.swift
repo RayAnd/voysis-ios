@@ -6,16 +6,18 @@ class AudioRecorderImpl: AudioRecorder {
 
     internal var onDataResponse: ((Data) -> Void)?
     private var format = AudioStreamBasicDescription()
+    private let audioParams: AudioRecordParams
     private var queue: AudioQueueRef?
     private var player: AudioPlayer
     private var inProgress = false
     private var bufferRefs = [UnsafeMutablePointer<AudioQueueBufferRef?>]()
 
-    public convenience init() {
-        self.init(player: AudioPlayerImpl())
+    public convenience init(config: Config) {
+        self.init(config: config, session: AudioSession(), player: AudioPlayerImpl())
     }
 
-    public init(player: AudioPlayer) {
+    public init(config: Config, session: AudioSession, player: AudioPlayer) {
+        self.audioParams = Utils.generateAudioRecordParams(config, session)
         self.player = player
         setFormatDescription()
     }
@@ -66,7 +68,7 @@ class AudioRecorderImpl: AudioRecorder {
         formatFlags |= kLinearPCMFormatFlagIsSignedInteger
         formatFlags |= kLinearPCMFormatFlagIsPacked
         format = AudioStreamBasicDescription(
-                mSampleRate: 16000.0,
+                mSampleRate: audioParams.sampleRate!,
                 mFormatID: kAudioFormatLinearPCM,
                 mFormatFlags: formatFlags,
                 mBytesPerPacket: UInt32(1 * MemoryLayout<Int16>.stride),
@@ -114,7 +116,7 @@ class AudioRecorderImpl: AudioRecorder {
 
         // allocate and enqueue buffers
         let numBuffers = 2
-        let bufferSize = deriveBufferSize(seconds: 0.5)
+        let bufferSize = UInt32(audioParams.readBufferSize!)
         for _ in 0..<numBuffers {
             let bufferRef = UnsafeMutablePointer<AudioQueueBufferRef?>.allocate(capacity: 1)
             bufferRefs.append(bufferRef)
@@ -124,26 +126,4 @@ class AudioRecorderImpl: AudioRecorder {
             }
         }
     }
-
-    private func deriveBufferSize(seconds: Float64) -> UInt32 {
-        guard let queue = queue else {
-            return 0
-        }
-        let maxBufferSize = UInt32(0x50000)
-        var maxPacketSize = format.mBytesPerPacket
-        if maxPacketSize == 0 {
-            var maxVBRPacketSize = UInt32(MemoryLayout<UInt32>.stride)
-            AudioQueueGetProperty(
-                    queue,
-                    kAudioQueueProperty_MaximumOutputPacketSize,
-                    &maxPacketSize,
-                    &maxVBRPacketSize
-            )
-        }
-
-        let numBytesForTime = UInt32(format.mSampleRate * Float64(maxPacketSize) * seconds)
-        let bufferSize = (numBytesForTime < maxBufferSize ? numBytesForTime : maxBufferSize)
-        return bufferSize
-    }
-
 }

@@ -14,4 +14,5 @@ public protocol Config {
      */
     var url: URL { get }
 
+    var audioRecordParams: AudioRecordParams? { get }
 }

@@ -3,7 +3,7 @@ import AVFoundation
 
 class AudioSession {
     let session = AVAudioSession.sharedInstance()
-    
+
     func requestRecordPermission(accepted: @escaping (Bool) -> Void) {
         session.requestRecordPermission { granted in
             if granted {
@@ -13,5 +13,8 @@ class AudioSession {
             }
         }
     }
-    
+
+    func getNativeSampleRate() -> Double {
+        return session.sampleRate
+    }
 }
