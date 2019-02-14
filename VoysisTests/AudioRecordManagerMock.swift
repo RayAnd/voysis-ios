@@ -9,21 +9,25 @@ class AudioRecordManagerMock: AudioRecorder {
     var onDataResponse: ((Data) -> Void)?
     var stopWithData: Bool = false
 
-    var data : Data?
+    var data: Data?
 
     public func start(onDataResponse: @escaping ((Data) -> Void)) {
         if (self.onDataResponse != nil) {
             self.onDataResponse = onDataResponse
         }
-        onDataResponse(data ?? Data([1,2]))
+        onDataResponse(data ?? Data([1, 2]))
     }
 
     public func stop() {
         if stopWithData {
             onDataResponse?(Data([4]))
-        }else{
+        } else {
             onDataResponse?(Data())
         }
 
+    }
+
+    func getMimeType() -> MimeType {
+        return MimeType(sampleRate: 16000, bitsPerSample: 16)
     }
 }

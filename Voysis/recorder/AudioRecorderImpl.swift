@@ -56,6 +56,10 @@ class AudioRecorderImpl: AudioRecorder {
         player.playStopAudio()
     }
 
+    func getMimeType() -> MimeType {
+        return MimeType(sampleRate: Int(audioParams.sampleRate!), bitsPerSample: 16)
+    }
+
     private func clearBuffers() {
         for buffer in bufferRefs {
             buffer.deallocate()

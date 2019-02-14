@@ -13,6 +13,7 @@
 		650C16732211B73F00326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
 		650C16762211E67F00326356 /* AudioRecordParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED2622281B5B83544B9F9 /* AudioRecordParams.swift */; };
 		65422E4A22143473005CF760 /* UtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED3DCFEFBA15CE114AF97 /* UtilTests.swift */; };
+		65422E4D2215816E005CF760 /* MimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED05C2279D852ED5F16DA /* MimeType.swift */; };
 		6546C12C2077CDCF00C12621 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A10200515E3005AFF23 /* EventType.swift */; };
 		6546C12D2077CDCF00C12621 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A122005163F005AFF23 /* Event.swift */; };
 		6546C12E2077CDCF00C12621 /* VoysisError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED4B973DD77DA54D742C7 /* VoysisError.swift */; };
@@ -66,6 +67,7 @@
 		F32ED5D570468E41846427B4 /* AudioRecordParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED2622281B5B83544B9F9 /* AudioRecordParams.swift */; };
 		F32ED79D1A412108C9A0C21F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED68EE9D0EC010AA54385 /* Utils.swift */; };
 		F32EDB3A98275ED46A056A22 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */; };
+		F32EDB4B3B92F39088E29DD8 /* MimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED05C2279D852ED5F16DA /* MimeType.swift */; };
 		F32EDD4274E52FD1CCEF3ABD /* CallbackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED669E18E2D658D25CE2F /* CallbackMock.swift */; };
 		F32EDE5AFC41237F50725DBD /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = F32EDBBDAC0847C4752E6BFA /* .travis.yml */; };
 		F32EDF3C829634724CD7412E /* CallbackDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED7BC04D2297004C933D8 /* CallbackDispatcher.swift */; };
@@ -117,6 +119,7 @@
 		65ECF4F6202A0DB900DB1EF1 /* ClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMock.swift; sourceTree = "<group>"; };
 		65ECF4F8202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordManagerMock.swift; sourceTree = "<group>"; };
 		F32ED054AF35482350532C57 /* ServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
+		F32ED05C2279D852ED5F16DA /* MimeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeType.swift; sourceTree = "<group>"; };
 		F32ED071C98AA7D34E56437C /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		F32ED2622281B5B83544B9F9 /* AudioRecordParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecordParams.swift; sourceTree = "<group>"; };
 		F32ED26DBFCEB0597E881AB2 /* FeedbackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
@@ -274,6 +277,7 @@
 				65D49A2C200626C2005AFF23 /* AudioRecorderImpl.swift */,
 				6530A35C2063E2AE009B33E7 /* AudioPlayer.swift */,
 				F32ED2622281B5B83544B9F9 /* AudioRecordParams.swift */,
+				F32ED05C2279D852ED5F16DA /* MimeType.swift */,
 			);
 			path = recorder;
 			sourceTree = "<group>";
@@ -438,6 +442,7 @@
 				F32EDD4274E52FD1CCEF3ABD /* CallbackMock.swift in Sources */,
 				F32ED5D570468E41846427B4 /* AudioRecordParams.swift in Sources */,
 				F32ED79D1A412108C9A0C21F /* Utils.swift in Sources */,
+				F32EDB4B3B92F39088E29DD8 /* MimeType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +450,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65422E4D2215816E005CF760 /* MimeType.swift in Sources */,
 				65422E4A22143473005CF760 /* UtilTests.swift in Sources */,
 				65B0CBF822133FA400C92B11 /* Utils.swift in Sources */,
 				650C16762211E67F00326356 /* AudioRecordParams.swift in Sources */,
