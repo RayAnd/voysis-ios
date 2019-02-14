@@ -1,10 +1,18 @@
 import Foundation
 
 public struct MimeType {
-    let sampleRate: Int
-    let bitsPerSample: Int
+    var encoding: String = "signed-int"
+    let bigEndian: Bool = false
+    var bitsPerSample: Int
+    var channels: Int
+    var sampleRate: Int
 
     public var description: String {
-        return "audio/pcm;bits=\(bitsPerSample);rate=\(sampleRate)"
+        return "audio/pcm;" +
+                "encoding=\(encoding);" +
+                "rate=\(sampleRate);" +
+                "bits=\(bitsPerSample);" +
+                "channels=\(channels);" +
+                "big-endian=\(bigEndian)"
     }
 }

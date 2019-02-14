@@ -5,12 +5,12 @@ import AVFoundation
 class AudioRecorderImpl: AudioRecorder {
 
     internal var onDataResponse: ((Data) -> Void)?
+    private var bufferRefs = [UnsafeMutablePointer<AudioQueueBufferRef?>]()
     private var format = AudioStreamBasicDescription()
     private let audioParams: AudioRecordParams
     private var queue: AudioQueueRef?
     private var player: AudioPlayer
     private var inProgress = false
-    private var bufferRefs = [UnsafeMutablePointer<AudioQueueBufferRef?>]()
 
     public convenience init(config: Config) {
         self.init(config: config, session: AudioSession(), player: AudioPlayerImpl())
@@ -57,7 +57,10 @@ class AudioRecorderImpl: AudioRecorder {
     }
 
     func getMimeType() -> MimeType {
-        return MimeType(sampleRate: Int(audioParams.sampleRate!), bitsPerSample: 16)
+        return MimeType(encoding: "signed-int",
+                bitsPerSample: Int(format.mBitsPerChannel),
+                channels: Int(format.mChannelsPerFrame),
+                sampleRate: Int(audioParams.sampleRate!))
     }
 
     private func clearBuffers() {

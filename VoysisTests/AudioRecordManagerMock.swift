@@ -28,6 +28,9 @@ class AudioRecordManagerMock: AudioRecorder {
     }
 
     func getMimeType() -> MimeType {
-        return MimeType(sampleRate: 16000, bitsPerSample: 16)
+        return MimeType(encoding: "signed-int",
+                bitsPerSample: 16,
+                channels: 1,
+                sampleRate: 16000)
     }
 }
