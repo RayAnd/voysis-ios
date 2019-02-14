@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-		650C16722211B48000326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
-		650C16732211B73F00326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
 		650C166F22118D0A00326356 /* voysis_off.wav in Resources */ = {isa = PBXBuildFile; fileRef = 650C166D22118D0900326356 /* voysis_off.wav */; };
 		650C167022118D0A00326356 /* voysis_on.wav in Resources */ = {isa = PBXBuildFile; fileRef = 650C166E22118D0A00326356 /* voysis_on.wav */; };
-
+		650C16722211B48000326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
+		650C16732211B73F00326356 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650C16712211B48000326356 /* Config.swift */; };
+		650C16762211E67F00326356 /* AudioRecordParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED2622281B5B83544B9F9 /* AudioRecordParams.swift */; };
+		65422E4A22143473005CF760 /* UtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED3DCFEFBA15CE114AF97 /* UtilTests.swift */; };
 		6546C12C2077CDCF00C12621 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A10200515E3005AFF23 /* EventType.swift */; };
 		6546C12D2077CDCF00C12621 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A122005163F005AFF23 /* Event.swift */; };
 		6546C12E2077CDCF00C12621 /* VoysisError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED4B973DD77DA54D742C7 /* VoysisError.swift */; };
@@ -56,12 +56,15 @@
 		6588B41620C6ECC30030445A /* CallbackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED669E18E2D658D25CE2F /* CallbackMock.swift */; };
 		6588B41820C6EDF90030445A /* VoysisTests.xctest in Sources */ = {isa = PBXBuildFile; fileRef = 65D499BB20039AD6005AFF23 /* VoysisTests.xctest */; };
 		65A6D9F62181DC1C00EF75C5 /* AudioSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED44C2E3B5693AB7C8F95 /* AudioSessionMock.swift */; };
+		65B0CBF822133FA400C92B11 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED68EE9D0EC010AA54385 /* Utils.swift */; };
 		F32ED083A6CB664260DCB4FD /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED054AF35482350532C57 /* ServiceProvider.swift */; };
 		F32ED190FD09286815609D71 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED91D71111AA13FD3B671 /* Converter.swift */; };
 		F32ED23A8E636C5D8703BFA0 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED948E979A37674EF9F6B /* Callback.swift */; };
 		F32ED27475F44319E8F21CD4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED40339BD1D764EDBEE3D /* Service.swift */; };
 		F32ED2C3487901AA33E01ABB /* DataConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED571BE7F40936814F683 /* DataConfig.swift */; };
 		F32ED46EFB3BA8F54FCBF676 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED342823D42A604203DD4 /* TokenManager.swift */; };
+		F32ED5D570468E41846427B4 /* AudioRecordParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED2622281B5B83544B9F9 /* AudioRecordParams.swift */; };
+		F32ED79D1A412108C9A0C21F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED68EE9D0EC010AA54385 /* Utils.swift */; };
 		F32EDB3A98275ED46A056A22 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32EDCBADFAAF92610373FE6 /* WebSocketClient.swift */; };
 		F32EDD4274E52FD1CCEF3ABD /* CallbackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED669E18E2D658D25CE2F /* CallbackMock.swift */; };
 		F32EDE5AFC41237F50725DBD /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = F32EDBBDAC0847C4752E6BFA /* .travis.yml */; };
@@ -93,16 +96,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-
-		650C16712211B48000326356 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		650C166D22118D0900326356 /* voysis_off.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = voysis_off.wav; sourceTree = "<group>"; };
 		650C166E22118D0A00326356 /* voysis_on.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = voysis_on.wav; sourceTree = "<group>"; };
-
+		650C16712211B48000326356 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		652D0461206D287200DEA61F /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		6530A35C2063E2AE009B33E7 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		654A5D872181FC1B00E94E5B /* AudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSession.swift; sourceTree = "<group>"; };
 		654C5E2C207B7E07002FF5E9 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
-		65C4AE09202487FF008F2A88 /* voysis_on.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voysis_on.mp3; sourceTree = "<group>"; };
 		65D499B220039AD6005AFF23 /* Voysis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Voysis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D499BB20039AD6005AFF23 /* VoysisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoysisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D499C220039AD6005AFF23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -118,14 +118,16 @@
 		65ECF4F8202A0DDF00DB1EF1 /* AudioRecordManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordManagerMock.swift; sourceTree = "<group>"; };
 		F32ED054AF35482350532C57 /* ServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		F32ED071C98AA7D34E56437C /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		F32ED2622281B5B83544B9F9 /* AudioRecordParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecordParams.swift; sourceTree = "<group>"; };
 		F32ED26DBFCEB0597E881AB2 /* FeedbackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		F32ED342823D42A604203DD4 /* TokenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		F32ED3DCFEFBA15CE114AF97 /* UtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilTests.swift; sourceTree = "<group>"; };
 		F32ED40339BD1D764EDBEE3D /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		F32ED44C2E3B5693AB7C8F95 /* AudioSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSessionMock.swift; sourceTree = "<group>"; };
 		F32ED4B973DD77DA54D742C7 /* VoysisError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoysisError.swift; sourceTree = "<group>"; };
-		F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voysis_off.mp3; sourceTree = "<group>"; };
 		F32ED571BE7F40936814F683 /* DataConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataConfig.swift; sourceTree = "<group>"; };
 		F32ED669E18E2D658D25CE2F /* CallbackMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallbackMock.swift; sourceTree = "<group>"; };
+		F32ED68EE9D0EC010AA54385 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F32ED711D62BDC6CDE44083F /* StructTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructTests.swift; sourceTree = "<group>"; };
 		F32ED7BC04D2297004C933D8 /* CallbackDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallbackDispatcher.swift; sourceTree = "<group>"; };
 		F32ED8E85917F9571047A2E6 /* VoysisTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoysisTests.swift; sourceTree = "<group>"; };
@@ -169,11 +171,9 @@
 				650C166D22118D0900326356 /* voysis_off.wav */,
 				650C166E22118D0A00326356 /* voysis_on.wav */,
 				654C5E2C207B7E07002FF5E9 /* Starscream.framework */,
-				65C4AE09202487FF008F2A88 /* voysis_on.mp3 */,
 				65D499B420039AD6005AFF23 /* Voysis */,
 				65D499BF20039AD6005AFF23 /* VoysisTests */,
 				65D499B320039AD6005AFF23 /* Products */,
-				F32ED4E2E6A68A809AB40259 /* voysis_off.mp3 */,
 				6519A1D82051BF67000F35EB /* Frameworks */,
 				F32EDBBDAC0847C4752E6BFA /* .travis.yml */,
 			);
@@ -209,6 +209,7 @@
 				F32ED711D62BDC6CDE44083F /* StructTests.swift */,
 				F32ED669E18E2D658D25CE2F /* CallbackMock.swift */,
 				F32ED44C2E3B5693AB7C8F95 /* AudioSessionMock.swift */,
+				F32ED3DCFEFBA15CE114AF97 /* UtilTests.swift */,
 			);
 			path = VoysisTests;
 			sourceTree = "<group>";
@@ -249,6 +250,7 @@
 				F32ED342823D42A604203DD4 /* TokenManager.swift */,
 				F32ED26DBFCEB0597E881AB2 /* FeedbackManager.swift */,
 				654A5D872181FC1B00E94E5B /* AudioSession.swift */,
+				F32ED68EE9D0EC010AA54385 /* Utils.swift */,
 			);
 			path = voysis;
 			sourceTree = "<group>";
@@ -271,6 +273,7 @@
 				65D49A1C20051F2B005AFF23 /* AudioRecorder.swift */,
 				65D49A2C200626C2005AFF23 /* AudioRecorderImpl.swift */,
 				6530A35C2063E2AE009B33E7 /* AudioPlayer.swift */,
+				F32ED2622281B5B83544B9F9 /* AudioRecordParams.swift */,
 			);
 			path = recorder;
 			sourceTree = "<group>";
@@ -433,6 +436,8 @@
 				F32ED23A8E636C5D8703BFA0 /* Callback.swift in Sources */,
 				F32EDF3C829634724CD7412E /* CallbackDispatcher.swift in Sources */,
 				F32EDD4274E52FD1CCEF3ABD /* CallbackMock.swift in Sources */,
+				F32ED5D570468E41846427B4 /* AudioRecordParams.swift in Sources */,
+				F32ED79D1A412108C9A0C21F /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +445,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65422E4A22143473005CF760 /* UtilTests.swift in Sources */,
+				65B0CBF822133FA400C92B11 /* Utils.swift in Sources */,
+				650C16762211E67F00326356 /* AudioRecordParams.swift in Sources */,
 				650C16732211B73F00326356 /* Config.swift in Sources */,
 				654A5D8A2181FCED00E94E5B /* AudioSession.swift in Sources */,
 				65A6D9F62181DC1C00EF75C5 /* AudioSessionMock.swift in Sources */,

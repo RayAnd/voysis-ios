@@ -15,7 +15,7 @@ public struct ServiceProvider {
      -Return: new instance of Voysis.Service
     */
     public static func make(config: Config) -> Service {
-        return make(config: config, recorder: AudioRecorderImpl())
+        return make(config: config, recorder: AudioRecorderImpl(config : config))
     }
 
     /**
