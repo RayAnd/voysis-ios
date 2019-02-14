@@ -11,7 +11,7 @@ public protocol AudioRecorder {
     func stop()
 
     /**
-      @return valid AudioInfo object.
+      @return valid MimeType object.
     */
     func getMimeType() -> MimeType
 }
