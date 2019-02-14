@@ -12,7 +12,7 @@ class UtilTests: XCTestCase {
     }
 
     func testGenerateAudioRecordParamsOverrideValues() {
-        let audioRecordParams = AudioRecordParams(sampleRate: 123.0, readBufferSize: 321.0)
+        let audioRecordParams = AudioRecordParams(sampleRate: 123.0, readBufferSize: 321)
         let config = DataConfig(url: URL(string: "https://test.com")!, refreshToken: "123", audioRecordParams: audioRecordParams)
         let generatedParams = Utils.generateAudioRecordParams(config, sessionMock)
         XCTAssertEqual(audioRecordParams.sampleRate, generatedParams.sampleRate)
