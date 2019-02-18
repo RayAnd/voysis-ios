@@ -2,11 +2,11 @@ public enum VoysisError: Error {
     case permissionNotGrantedError
     case duplicateProcessingRequest
     case serializationError(String)
-    case requestEncodingError
+    case requestEncodingError(String)
     case internalServerError
     case networkError(String)
     case unauthorized
-    case unknownError
+    case unknownError(String?)
     case tokenError
 
 }

@@ -125,7 +125,7 @@ class VoysisTests: XCTestCase {
 
     func testErrorResponse() {
         let errorReceived = expectation(description: "error received")
-        client.error = VoysisError.unknownError
+        client.error = VoysisError.unknownError("error")
         client.stringEvent.append(token)
         let error = { (response: VoysisError) in
             switch response {

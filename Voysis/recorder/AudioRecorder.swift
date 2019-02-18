@@ -13,5 +13,5 @@ public protocol AudioRecorder {
     /**
       @return valid MimeType object.
     */
-    func getMimeType() -> MimeType
+    func getMimeType() throws -> MimeType
 }

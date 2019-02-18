@@ -30,7 +30,7 @@ internal struct Converter {
         if let data = try? encoder.encode(socketRequest) {
             return String(data: data, encoding: .utf8)?.replacingOccurrences(of: "\\/", with: "/")
         }
-        throw VoysisError.requestEncodingError
+        throw VoysisError.requestEncodingError("error encoding json")
     }
 
     static func decodeResponse<C: Context, E: Entities>(json: String, context: C.Type, entity: E.Type) throws -> Event {
@@ -50,7 +50,7 @@ internal struct Converter {
                 } else if type == serverError {
                     throw VoysisError.internalServerError
                 } else {
-                    throw VoysisError.unknownError
+                    throw VoysisError.unknownError("error decoding response")
                 }
             default:
                 throw VoysisError.serializationError(json)

@@ -56,8 +56,9 @@ class AudioRecorderImpl: AudioRecorder {
         player.playStopAudio()
     }
 
-    func getMimeType() -> MimeType {
-        return MimeType(encoding: "signed-int",
+    func getMimeType() throws -> MimeType {
+        return try MimeType(encoding: format.getEncoding(),
+                bigEndian: format.mFormatFlags & kLinearPCMFormatFlagIsBigEndian > 0,
                 bitsPerSample: Int(format.mBitsPerChannel),
                 channels: Int(format.mChannelsPerFrame),
                 sampleRate: Int(audioParams.sampleRate!))

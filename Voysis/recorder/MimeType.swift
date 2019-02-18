@@ -1,8 +1,8 @@
 import Foundation
 
 public struct MimeType {
-    var encoding: String = "signed-int"
-    let bigEndian: Bool = false
+    var encoding: String
+    let bigEndian: Bool
     var bitsPerSample: Int
     var channels: Int
     var sampleRate: Int

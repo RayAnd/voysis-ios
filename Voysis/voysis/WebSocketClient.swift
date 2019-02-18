@@ -87,7 +87,7 @@ internal class VoysisWebSocketClient: Client, WebSocketDelegate {
                 onError?(VoysisError.networkError(error.type.localizedDescription))
             }
         }else{
-            onError?(VoysisError.unknownError)
+            onError?(VoysisError.unknownError(error?.localizedDescription))
         }
     }
 
