@@ -33,7 +33,7 @@ class StructTests: XCTestCase {
         let queryType = "audio";
         let context = TestContext()
         let entities = TestEntities()
-        let audioQuery = AudioQuery()
+        let audioQuery = AudioQuery(mimeType: "audio/pcm;bits=16;rate=16000")
         let textQuery = TextQuery(text: "testQuery")
         let intent = "testIntent"
         let reply = TextWithAudio(text: "reply", audioUri: "test.com")

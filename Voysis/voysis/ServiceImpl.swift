@@ -118,11 +118,11 @@ internal class ServiceImpl: Service {
 
     private func startTextQuery<C: Context, T: Callback>(_ context: C?, _ text: String, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            if let request = try Converter.encodeRequest(text: text, context: context, userId: userId, token: tokenManager.token!.token) {
+            if let request = try Converter.encodeRequest(text: text, context: context, userId: userId, mimeType: recorder.getMimeType(), token: tokenManager.token!.token) {
                 client.sendString(entity: request, onMessage: { self.onTextMessage($0, dispatcher) }, onError: { self.onError($0, dispatcher) })
             }
         } catch {
-            dispatcher.failure(.requestEncodingError)
+            onError(error, dispatcher)
         }
     }
 
@@ -138,12 +138,12 @@ internal class ServiceImpl: Service {
 
     private func startAudioQuery<C: Context, T: Callback>(_ context: C?, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            if let request = try Converter.encodeRequest(context: context, userId: userId, token: tokenManager.token!.token) {
+            if let request = try Converter.encodeRequest(context: context, userId: userId, mimeType: recorder.getMimeType(), token: tokenManager.token!.token) {
                 byteSender = client.setupAudioStream(entity: request, onMessage: { self.onAudioMessage($0, dispatcher) }, onError: { self.onError($0, dispatcher) })
                 audioQueue.isSuspended = false
             }
         } catch {
-            dispatcher.failure(.requestEncodingError)
+            onError(error, dispatcher)
         }
     }
 
@@ -189,9 +189,13 @@ internal class ServiceImpl: Service {
         }
     }
 
-    private func onError<T: Callback>(_ error: VoysisError, _ dispatcher: CallbackDispatcher<T>) {
+    private func onError<T: Callback>(_ error: Error, _ dispatcher: CallbackDispatcher<T>) {
         cancel()
-        dispatcher.failure(error)
+        if let error = error as? VoysisError {
+            dispatcher.failure(error)
+        } else {
+            dispatcher.failure(.unknownError(error.localizedDescription))
+        }
     }
 
     private func onAudioMessage<T: Callback>(_ data: String, _ dispatcher: CallbackDispatcher<T>) {
