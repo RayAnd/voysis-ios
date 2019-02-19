@@ -18,4 +18,10 @@ class UtilTests: XCTestCase {
         XCTAssertEqual(audioRecordParams.sampleRate, generatedParams.sampleRate)
         XCTAssertEqual(audioRecordParams.readBufferSize, generatedParams.readBufferSize)
     }
+
+    func testMaxRecordingLength() {
+        XCTAssertEqual(320000, Utils.calculateMaxRecordingLength(16000))
+        XCTAssertEqual(820000, Utils.calculateMaxRecordingLength(41000))
+        XCTAssertEqual(960000, Utils.calculateMaxRecordingLength(48000))
+    }
 }
