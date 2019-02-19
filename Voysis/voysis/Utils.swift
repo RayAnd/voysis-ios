@@ -12,4 +12,12 @@ class Utils {
         }
         return AudioRecordParams(sampleRate: sampleRate, readBufferSize: readBufferSize)
     }
+
+    static func calculateMaxRecordingLength(_ sampleRate: Int) -> Int {
+
+        //pcm 16bit encoding = two bytes per sample
+        let bytesPerSample = 2
+        let seconds = 10
+        return sampleRate * bytesPerSample * seconds
+    }
 }

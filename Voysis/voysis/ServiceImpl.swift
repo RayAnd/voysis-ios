@@ -12,7 +12,7 @@ internal class ServiceImpl: Service {
 
     private var finishedReason: FinishedReason?
     private var byteSender: ByteSender?
-    private var maxBytes = 320000
+    private let maxBytes : Int
 
     public var state = State.idle
 
@@ -34,6 +34,7 @@ internal class ServiceImpl: Service {
         audioQueue.name = "VoysisAudioRequests"
         audioQueue.maxConcurrentOperationCount = 1
         audioQueue.isSuspended = true
+        maxBytes = Utils.calculateMaxRecordingLength(Int(session.getNativeSampleRate()))
     }
 
     public func startAudioQuery<C, E, T: Callback>(context: C?, callback: T) where T.C == C, T.E == E {
