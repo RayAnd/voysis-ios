@@ -14,6 +14,7 @@ class Utils {
     }
 
     static func calculateMaxRecordingLength(_ sampleRate: Int) -> Int {
+
         //pcm 16bit encoding = two bytes per sample
         let bytesPerSample = 2
         let seconds = 10
