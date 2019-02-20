@@ -21,8 +21,8 @@ internal class VoysisWebSocketClient: Client, WebSocketDelegate {
     private var onMessage: ((String) -> Void)?
     private var onError: ((VoysisError) -> Void)?
 
-    init(request: URLRequest, dispatchQueue: DispatchQueue) {
-        socket = WebSocket(request: request)
+    init(config: Config, dispatchQueue: DispatchQueue) {
+        socket = WebSocket(request: URLRequest(url: config.url.appendingPathComponent("websocketapi")))
         socket.callbackQueue = dispatchQueue
         queue = OperationQueue()
         queue.name = "VoysisWebSocketRequests"
