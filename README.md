@@ -31,7 +31,7 @@ Overview
 
 
 The `Voysis.Service` class is the main interface used to process voice recognition requests.
-It is accessed via the static `Voysis.ServiceProvider.make(config: Config(url : "http://ADD-URL.com/websocketapi"))` method.
+It is accessed via the static `Voysis.ServiceProvider.make(config: DataConfig(url : "http://ADD-URL.com/websocketapi"))` method.
 The sdk communicates to the network using a Websocket connection accomplished using the `Starscream.framework`.
 The iOS core library, `Audio Toolbox Audio Queue Services` is used for recording the users voice.
 
