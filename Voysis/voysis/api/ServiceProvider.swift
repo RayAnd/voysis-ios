@@ -26,7 +26,7 @@ public struct ServiceProvider {
     */
     public static func make(config: Config, recorder: AudioRecorder, callbackQueue: DispatchQueue = DispatchQueue.main) -> Service {
         return ServiceImpl(
-                client: VoysisWebSocketClient(request: URLRequest(url: config.url), dispatchQueue: callbackQueue),
+                client: VoysisWebSocketClient(config: config, dispatchQueue: callbackQueue),
                 recorder: recorder,
                 dispatchQueue: callbackQueue,
                 feedbackManager: FeedbackManager(callbackQueue),
