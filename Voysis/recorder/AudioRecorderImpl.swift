@@ -9,16 +9,14 @@ class AudioRecorderImpl: AudioRecorder {
     private var format = AudioStreamBasicDescription()
     private let audioParams: AudioRecordParams
     private var queue: AudioQueueRef?
-    private var player: AudioPlayer
     private var inProgress = false
 
     public convenience init(config: Config) {
-        self.init(config: config, session: AudioSession(), player: AudioPlayerImpl())
+        self.init(config: config, session: AudioSession())
     }
 
-    public init(config: Config, session: AudioSession, player: AudioPlayer) {
+    public init(config: Config, session: AudioSession) {
         self.audioParams = Utils.generateAudioRecordParams(config, session)
-        self.player = player
         setFormatDescription()
     }
 
@@ -29,15 +27,11 @@ class AudioRecorderImpl: AudioRecorder {
         self.onDataResponse = onDataResponse
         setupAudioQueue()
         inProgress = true
-        player.playStartAudio { [weak self] in
-            guard let this = self else {
-                return
-            }
-            guard let queue = this.queue else {
-                return
-            }
-            AudioQueueStart(queue, nil)
+        guard let queue = queue else {
+            return
         }
+        AudioQueueStart(queue, nil)
+
     }
 
     public func stop() {
@@ -53,7 +47,6 @@ class AudioRecorderImpl: AudioRecorder {
         AudioQueueStop(queue, true)
         AudioQueueDispose(queue, true)
         clearBuffers()
-        player.playStopAudio()
     }
 
     func getMimeType() throws -> MimeType {
