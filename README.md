@@ -1,5 +1,3 @@
-WARNING: This is a beta release of the Voysis iOS SDK.
-
 Voysis iOS Swift SDK
 =====================
 
@@ -91,7 +89,13 @@ class ViewController: UIViewController, Callback {
     }
 
     func recordingStarted() {
-        //Optional: called when microphone begins recording.
+       /**
+	    Optional: called when microphone begins recording.
+	    NOTE: It is recommended that when this callback occurs, the user be notified through the ui that they can now       
+	    start speaking. 
+	    Failure to implement proper ui may result in the user speaking before the microphone has opened resulting in         
+	    incomplete audio.
+	    */
     }
 
     func queryResponse(queryResponse: QueryResponse) {
