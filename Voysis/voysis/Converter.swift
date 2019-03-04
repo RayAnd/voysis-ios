@@ -11,13 +11,13 @@ internal struct Converter {
     static let response = "response"
     static let vadStop = "vad_stop"
 
-    static func encodeRequest<C: Context>(text: String? = nil, context: C?, userId : String?, mimeType: MimeType?, token : String) throws -> String? {
-        let requestEntity = getRequestEntity(text, context, mimeType, userId)
-        let request = SocketRequest(entity: requestEntity, method: "POST", headers: Headers(token: token), restURI: "/queries")
+    static func encodeRequest<C: Context>(text: String? = nil, context: C?, config: Config, mimeType: MimeType?, token: String) throws -> String? {
+        let requestEntity = getRequestEntity(text, context, mimeType, config.userId)
+        let request = SocketRequest(entity: requestEntity, method: "POST", headers: Headers(token: token, xVoysisIgnoreVad: !config.isVadEnabled), restURI: "/queries")
         return try encodeRequest(request)
     }
 
-    static func getRequestEntity<C: Context>(_ text: String?, _ context: C?, _ mimeType: MimeType?, _ userId: String? ) -> RequestEntity<C> {
+    static func getRequestEntity<C: Context>(_ text: String?, _ context: C?, _ mimeType: MimeType?, _ userId: String?) -> RequestEntity<C> {
         if let queryText = text {
             return RequestEntity(textQuery: TextQuery(text: queryText), queryType: "text", userId: userId, context: context)
         } else {

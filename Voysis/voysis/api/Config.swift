@@ -15,4 +15,6 @@ public protocol Config {
     var url: URL { get }
 
     var audioRecordParams: AudioRecordParams? { get }
+
+    var isVadEnabled : Bool { get }
 }

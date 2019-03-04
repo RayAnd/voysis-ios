@@ -31,7 +31,7 @@ public struct ServiceProvider {
                 dispatchQueue: callbackQueue,
                 feedbackManager: FeedbackManager(callbackQueue),
                 tokenManager: TokenManager(refreshToken: config.refreshToken, dispatchQueue: callbackQueue),
-                userId: config.userId,
+                config: config,
                 session: AudioSession())
     }
 }
