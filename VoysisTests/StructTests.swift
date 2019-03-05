@@ -4,8 +4,8 @@ import XCTest
 class StructTests: XCTestCase {
 
     func testHeaderCreation() {
-        let header = Headers(token: "token")
-        XCTAssertEqual(header.xVoysisIgnoreVad, false)
+        let header = Headers(token: "token", xVoysisIgnoreVad: true)
+        XCTAssertEqual(header.xVoysisIgnoreVad, true)
         XCTAssertEqual(header.authorization, "Bearer token")
         XCTAssertNotNil(header.audioProfileId)
         XCTAssertNotNil(header.userAgent)

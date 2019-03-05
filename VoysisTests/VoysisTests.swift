@@ -6,7 +6,7 @@ class VoysisTests: XCTestCase {
     let textResponse = "{\"type\":\"response\",\"entity\":{\"id\":\"1\",\"locale\":\"en-US\",\"conversationId\":\"1\",\"queryType\":\"text\",\"textQuery\":{\"text\":\"go to my cart\"},\"intent\":\"goToCart\",\"reply\":{\"text\":\"Here's what's in your cart\"},\"entities\":{\"products\":[]},\"_links\":{\"self\":{\"href\":\"/queries/1\"},\"audio\":{\"href\":\"/queries/1/audio\"}},\"_embedded\":{}},\"requestId\":\"0\",\"responseCode\":201,\"responseMessage\":\"Created\"}"
     let token = "{\"type\":\"response\",\"entity\":{\"token\":\"1\",\"expiresAt\":\"2018-04-17T14:14:06.701Z\"},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
     let feedback = "{\"type\":\"response\",\"entity\":{},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
-
+    private let config = DataConfig(url: URL(string: "wss://test.io")!, refreshToken: "12345", isVadEnabled: false)
     private var voysis: ServiceImpl!
     private var audioRecordManager: AudioRecordManagerMock!
     private var client: ClientMock!
@@ -27,7 +27,7 @@ class VoysisTests: XCTestCase {
                 dispatchQueue: DispatchQueue.main,
                 feedbackManager: feedbackManager,
                 tokenManager: tokenManager,
-                userId: "",
+                config: config,
                 session: sessionMock)
                 //closure cannot be null but is not required for most tests.
         client.dataCallback = { ( data: Data) in

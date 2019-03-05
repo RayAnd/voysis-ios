@@ -8,11 +8,11 @@ internal class ServiceImpl: Service {
     private let session: AudioSession
     private let recorder: AudioRecorder
     private let client: Client
-    private let userId: String?
+    private let config: Config
 
     private var finishedReason: FinishedReason?
     private var byteSender: ByteSender?
-    private let maxBytes : Int
+    private let maxBytes: Int
 
     public var state = State.idle
 
@@ -21,12 +21,12 @@ internal class ServiceImpl: Service {
          dispatchQueue: DispatchQueue,
          feedbackManager: FeedbackManager,
          tokenManager: TokenManager,
-         userId: String?,
+         config: Config,
          session: AudioSession) {
         self.client = client
         self.recorder = recorder
         self.tokenManager = tokenManager
-        self.userId = userId
+        self.config = config
         self.session = session
         self.dispatchQueue = dispatchQueue
         self.feedbackManager = feedbackManager
@@ -75,8 +75,8 @@ internal class ServiceImpl: Service {
         tokenManager.tokenHandler = tokenHandler
         tokenManager.tokenErrorHandler = errorHandler
         do {
-            let requestEntity = RequestEntity(userId: userId, context: nil as EmptyContext?)
-            let request = SocketRequest(entity: requestEntity, method: "POST", headers: Headers(token: tokenManager.refreshToken), restURI: "/tokens")
+            let requestEntity = RequestEntity(userId: config.userId, context: nil as EmptyContext?)
+            let request = SocketRequest(entity: requestEntity, method: "POST", headers: Headers(token: tokenManager.refreshToken, xVoysisIgnoreVad: !config.isVadEnabled), restURI: "/tokens")
             let entity = try Converter.encodeRequest(request)
             client.sendString(entity: entity!, onMessage: tokenManager.onTokenMessage, onError: tokenManager.onError)
         } catch {
@@ -98,7 +98,7 @@ internal class ServiceImpl: Service {
 
     private func sendFeedback(feedback: FeedbackData, queryId: String) {
         do {
-            let request = SocketRequest(entity: feedback, method: "PATCH", headers: Headers(token: tokenManager.token!.token), restURI: "/queries/\(queryId)/feedback")
+            let request = SocketRequest(entity: feedback, method: "PATCH", headers: Headers(token: tokenManager.token!.token, xVoysisIgnoreVad: !config.isVadEnabled), restURI: "/queries/\(queryId)/feedback")
             let entity = try Converter.encodeRequest(request)
             client.sendString(entity: entity!, onMessage: feedbackManager.onMessage, onError: feedbackManager.onError)
         } catch {
@@ -119,7 +119,7 @@ internal class ServiceImpl: Service {
 
     private func startTextQuery<C: Context, T: Callback>(_ context: C?, _ text: String, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            if let request = try Converter.encodeRequest(text: text, context: context, userId: userId, mimeType: recorder.getMimeType(), token: tokenManager.token!.token) {
+            if let request = try Converter.encodeRequest(text: text, context: context, config: config, mimeType: recorder.getMimeType(), token: tokenManager.token!.token) {
                 client.sendString(entity: request, onMessage: { self.onTextMessage($0, dispatcher) }, onError: { self.onError($0, dispatcher) })
             }
         } catch {
@@ -139,7 +139,7 @@ internal class ServiceImpl: Service {
 
     private func startAudioQuery<C: Context, T: Callback>(_ context: C?, _ dispatcher: CallbackDispatcher<T>) {
         do {
-            if let request = try Converter.encodeRequest(context: context, userId: userId, mimeType: recorder.getMimeType(), token: tokenManager.token!.token) {
+            if let request = try Converter.encodeRequest(context: context, config: config, mimeType: recorder.getMimeType(), token: tokenManager.token!.token) {
                 byteSender = client.setupAudioStream(entity: request, onMessage: { self.onAudioMessage($0, dispatcher) }, onError: { self.onError($0, dispatcher) })
                 audioQueue.isSuspended = false
             }

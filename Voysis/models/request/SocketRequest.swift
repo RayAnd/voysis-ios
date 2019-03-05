@@ -53,21 +53,19 @@ public struct TextQuery: Codable {
 
 public struct Headers: Codable {
     var accept: String? = "application/vnd.voysisquery.v1+json"
-    var xVoysisIgnoreVad: Bool? = false
     var audioProfileId: String? = ""
+    var xVoysisIgnoreVad: Bool
     var authorization: String?
     var userAgent: String?
 
-    public init(token: String?) {
+    public init(token: String, xVoysisIgnoreVad: Bool) {
+        self.xVoysisIgnoreVad = xVoysisIgnoreVad
+        authorization = "Bearer \(token)"
         audioProfileId = getAudioProfileId()
         userAgent = getUserAgent()
-        if let token = token {
-            authorization = "Bearer \(token)"
-        }
-
     }
 
-    init(accept: String?, xVoysisIgnoreVad: Bool?, acceptLanguage: String?, authorization: String, audioProfileId: String?, userAgent: String?) {
+    init(accept: String?, xVoysisIgnoreVad: Bool, acceptLanguage: String?, authorization: String, audioProfileId: String?, userAgent: String?) {
         self.xVoysisIgnoreVad = xVoysisIgnoreVad
         self.audioProfileId = audioProfileId
         self.authorization = authorization
