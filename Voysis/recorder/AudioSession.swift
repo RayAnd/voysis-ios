@@ -6,7 +6,9 @@ internal class AudioSession {
 
     func requestRecordPermission(accepted: @escaping (Bool) -> Void) throws {
         do {
-            try session.setCategory(AVAudioSession.Category.record, mode: .default, options: [.duckOthers])
+            if #available(iOS 10.0, *) {
+                try session.setCategory(AVAudioSession.Category.record, mode: .default, options: [.duckOthers])
+            } 
             try session.setActive(true)
             session.requestRecordPermission { granted in
                 if granted {
