@@ -43,12 +43,16 @@ internal class ServiceImpl: Service {
             dispatcher.failure(.duplicateProcessingRequest)
             return
         }
-        session.requestRecordPermission { granted in
-            guard granted else {
-                dispatcher.failure(.permissionNotGrantedError)
-                return
+        do {
+            try session.requestRecordPermission { granted in
+                guard granted else {
+                    dispatcher.failure(.permissionNotGrantedError)
+                    return
+                }
+                self.performAudioQuery(context, dispatcher)
             }
-            self.performAudioQuery(context, dispatcher)
+        } catch {
+            dispatcher.failure(.audioSessionError)
         }
     }
 
@@ -192,6 +196,7 @@ internal class ServiceImpl: Service {
 
     private func onError<T: Callback>(_ error: Error, _ dispatcher: CallbackDispatcher<T>) {
         cancel()
+        shutDownSession(dispatcher)
         if let error = error as? VoysisError {
             dispatcher.failure(error)
         } else {
@@ -208,6 +213,7 @@ internal class ServiceImpl: Service {
             case .audioQueryCompleted:
                 state = .idle
                 dispatcher.success(event.response! as! StreamResponse<T.C, T.E>)
+                shutDownSession(dispatcher)
             case .audioQueryCreated:
                 dispatcher.queryResponse(event.response as! QueryResponse)
             }
@@ -232,4 +238,11 @@ internal class ServiceImpl: Service {
         }
     }
 
+    private func shutDownSession<T: Callback>(_ dispatcher: CallbackDispatcher<T>) {
+        do {
+            try session.shutDown()
+        } catch {
+            dispatcher.failure(.audioSessionError)
+        }
+    }
 }

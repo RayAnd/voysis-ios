@@ -4,6 +4,7 @@ import XCTest
 class VoysisTests: XCTestCase {
 
     let textResponse = "{\"type\":\"response\",\"entity\":{\"id\":\"1\",\"locale\":\"en-US\",\"conversationId\":\"1\",\"queryType\":\"text\",\"textQuery\":{\"text\":\"go to my cart\"},\"intent\":\"goToCart\",\"reply\":{\"text\":\"Here's what's in your cart\"},\"entities\":{\"products\":[]},\"_links\":{\"self\":{\"href\":\"/queries/1\"},\"audio\":{\"href\":\"/queries/1/audio\"}},\"_embedded\":{}},\"requestId\":\"0\",\"responseCode\":201,\"responseMessage\":\"Created\"}"
+    let audioResponse = "{\"type\":\"notification\",\"entity\":{\"id\":\"1\",\"locale\":\"en-US\",\"conversationId\":\"1\",\"queryType\":\"audio\",\"textQuery\":{\"text\":\"test\"},\"audioQuery\":{\"mimeType\":\"audio/pcm;encoding=signed-int;rate=48000;bits=16;channels=1;big-endian=false\"},\"intent\":\"goToCart\",\"reply\":{\"text\":\"test\"},\"hint\":{\"text\":\"test\"},\"_links\":{\"self\":{\"href\":\"\"},\"audio\":{\"href\":\"\"}},\"_embedded\":{}},\"notificationType\":\"query_complete\"}"
     let token = "{\"type\":\"response\",\"entity\":{\"token\":\"1\",\"expiresAt\":\"2018-04-17T14:14:06.701Z\"},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
     let feedback = "{\"type\":\"response\",\"entity\":{},\"requestId\":\"0\",\"responseCode\":200,\"responseMessage\":\"OK\"}"
     private let config = DataConfig(url: URL(string: "wss://test.io")!, refreshToken: "12345", isVadEnabled: false)
@@ -58,6 +59,24 @@ class VoysisTests: XCTestCase {
         callbackMock.callback = callback
         voysis!.startAudioQuery(context: context, callback: callbackMock)
         waitForExpectations(timeout: 5, handler: nil)
+    }
+
+
+    func testSuccessWithSessionShutdown() {
+        let decodedExpectation = expectation(description: "string decoded correctly")
+        client.stringEvent.append(token)
+        client.setupStreamEvent = audioResponse
+        audioRecordManager.stopWithData = true
+        let success = { (response: StreamResponse<TestContext, TestEntities>) in
+            if (response.id == "1") {
+                decodedExpectation.fulfill()
+            }
+        }
+        callbackMock.success = success
+        voysis.startAudioQuery(context: context, callback: callbackMock)
+        XCTAssertEqual(sessionMock.hasShutDown, false)
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(sessionMock.hasShutDown, true)
     }
 
     func testSendTextRequest() {
