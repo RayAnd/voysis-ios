@@ -5,6 +5,7 @@ public enum VoysisError: Error {
     case requestEncodingError(String)
     case internalServerError
     case networkError(String)
+    case audioSessionError
     case unauthorized
     case unknownError(String?)
     case tokenError
