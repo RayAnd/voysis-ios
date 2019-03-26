@@ -11,7 +11,7 @@ before_install:
 
 before_script:
   # bootstrap the dependencies for the project
-  - carthage bootstrap --platform iOS --no-use-binaries
+  - carthage bootstrap --platform iOS --no-use-binaries  --cache-builds
 
 script:
   xcodebuild -scheme VoysisTests -project Voysis.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build test
