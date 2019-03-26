@@ -2,6 +2,7 @@ import Foundation
 import AVFoundation
 
 internal class AudioSession {
+
     private let session = AVAudioSession.sharedInstance()
 
     func requestRecordPermission(accepted: @escaping (Bool) -> Void) throws {
