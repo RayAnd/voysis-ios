@@ -25,7 +25,6 @@
 		654C5E2A207B7D99002FF5E9 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652D0461206D287200DEA61F /* Starscream.framework */; };
 		654C5E2D207B7E07002FF5E9 /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 654C5E2C207B7E07002FF5E9 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		654C5E2E207B7FD8002FF5E9 /* Voysis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D499B220039AD6005AFF23 /* Voysis.framework */; };
-		655D9D88224A62C2006713D3 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655D9D87224A62C2006713D3 /* Starscream.framework */; };
 		6588B3FD20C6ECC30030445A /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A10200515E3005AFF23 /* EventType.swift */; };
 		6588B3FE20C6ECC30030445A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49A122005163F005AFF23 /* Event.swift */; };
 		6588B3FF20C6ECC30030445A /* VoysisError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32ED4B973DD77DA54D742C7 /* VoysisError.swift */; };
@@ -99,7 +98,6 @@
 		650C16712211B48000326356 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		652D0461206D287200DEA61F /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		654C5E2C207B7E07002FF5E9 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
-		655D9D87224A62C2006713D3 /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D499B220039AD6005AFF23 /* Voysis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Voysis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D499BB20039AD6005AFF23 /* VoysisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoysisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D499C220039AD6005AFF23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				655D9D88224A62C2006713D3 /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
