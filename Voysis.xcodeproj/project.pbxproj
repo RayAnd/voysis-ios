@@ -158,7 +158,6 @@
 		6519A1D82051BF67000F35EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				655D9D87224A62C2006713D3 /* Starscream.framework */,
 				652D0461206D287200DEA61F /* Starscream.framework */,
 			);
 			name = Frameworks;
