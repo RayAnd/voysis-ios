@@ -140,10 +140,12 @@ extension Headers {
         let appBundle = Bundle.main
         let libBundle = Bundle(for: VoysisWebSocketClient.self)
         let osInfo = VersionInfo(id: current.systemName, version: current.systemVersion)
-        let sdkInfo = VersionInfo(id: libBundle.bundleIdentifier, version: libBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"))
-        let appInfo = VersionInfo(id: appBundle.bundleIdentifier, version: appBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"))
-        let deviceInfo = VersionInfo(manufacturer: "Apple", model: current.model)
-        let clientVersionInfo = ClientVersionInfo(os: os, sdk: sdk, app: app, device: device)
+        let sdkVersion = libBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString")
+        let appVersion = appBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString")
+        let sdkInfo = VersionInfo(id: libBundle.bundleIdentifier, version: sdkVersion as! String?)
+        let appInfo = VersionInfo(id: appBundle.bundleIdentifier, version: appVersion as! String?)
+        let deviceInfo = DeviceInfo(manufacturer: "Apple", model: current.model)
+        let clientVersionInfo = ClientVersionInfo(os: osInfo, sdk: sdkInfo, app: appInfo, device: deviceInfo)
         return try? JSONEncoder().encode(clientVersionInfo)
     }
 
