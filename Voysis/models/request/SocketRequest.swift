@@ -135,7 +135,7 @@ public struct ClientVersionInfo: Codable {
 
 extension Headers {
 
-    private func getClientVersionInfo() -> String {
+    private func getClientVersionInfo() -> String? {
         let current = UIDevice.current
         let appBundle = Bundle.main
         let libBundle = Bundle(for: VoysisWebSocketClient.self)
@@ -146,7 +146,7 @@ extension Headers {
         let appInfo = VersionInfo(id: appBundle.bundleIdentifier, version: appVersion as! String?)
         let deviceInfo = DeviceInfo(manufacturer: "Apple", model: current.model)
         let clientVersionInfo = ClientVersionInfo(os: osInfo, sdk: sdkInfo, app: appInfo, device: deviceInfo)
-        return try? JSONEncoder().encode(clientVersionInfo)
+        return try? String(data: JSONEncoder().encode(clientVersionInfo), encoding: .utf8)
     }
 
     public func getAudioProfileId() -> String {
