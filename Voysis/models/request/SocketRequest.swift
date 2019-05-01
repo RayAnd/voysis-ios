@@ -120,12 +120,12 @@ public struct DeviceInfo: Codable {
 }
 
 public struct ClientVersionInfo: Codable {
-    public var os: VersionInfo
-    public var sdk: VersionInfo
-    public var app: VersionInfo
-    public var device: DeviceInfo
+    public var os: VersionInfo?
+    public var sdk: VersionInfo?
+    public var app: VersionInfo?
+    public var device: DeviceInfo?
 
-    public init(os: VersionInfo, sdk: VersionInfo, app: VersionInfo, device: DeviceInfo) {
+    public init(os: VersionInfo?, sdk: VersionInfo?, app: VersionInfo?, device: DeviceInfo?) {
         self.os = os
         self.sdk = sdk
         self.app = app
@@ -146,7 +146,8 @@ extension Headers {
         let appInfo = VersionInfo(id: appBundle.bundleIdentifier, version: appVersion as! String?)
         let deviceInfo = DeviceInfo(manufacturer: "Apple", model: current.model)
         let clientVersionInfo = ClientVersionInfo(os: osInfo, sdk: sdkInfo, app: appInfo, device: deviceInfo)
-        return try? String(data: JSONEncoder().encode(clientVersionInfo), encoding: .utf8)
+        let response =  try? String(data: JSONEncoder().encode(clientVersionInfo), encoding: .utf8)
+        return response ?? "error generating version info"
     }
 
     public func getAudioProfileId() -> String {
