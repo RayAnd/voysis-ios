@@ -146,7 +146,7 @@ extension Headers {
         let appInfo = VersionInfo(id: appBundle.bundleIdentifier, version: appVersion as! String?)
         let deviceInfo = DeviceInfo(manufacturer: "Apple", model: current.model)
         let clientVersionInfo = ClientVersionInfo(os: osInfo, sdk: sdkInfo, app: appInfo, device: deviceInfo)
-        return try? String(data: JSONEncoder().encode(clientVersionInfo), encoding: .utf8)
+        return (try? String(data: JSONEncoder().encode(clientVersionInfo), encoding: .utf8)) ?? nil
     }
 
     public func getAudioProfileId() -> String {
