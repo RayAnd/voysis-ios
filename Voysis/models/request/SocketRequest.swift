@@ -125,7 +125,7 @@ public struct ClientVersionInfo: Codable {
     public var app: VersionInfo
     public var device: DeviceInfo
 
-    public init(os: VersionInfo, sdk: VersionInfo, app: VersionInfo, device: VersionInfo) {
+    public init(os: VersionInfo, sdk: VersionInfo, app: VersionInfo, device: DeviceInfo) {
         self.os = os
         self.sdk = sdk
         self.app = app
@@ -139,11 +139,11 @@ extension Headers {
         let current = UIDevice.current
         let appBundle = Bundle.main
         let libBundle = Bundle(for: VoysisWebSocketClient.self)
-        let osInfo = VersionInfo(current.systemName, current.systemVersion)
-        let sdkInfo = VersionInfo(libBundle.bundleIdentifier, libBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"))
-        let appInfo = VersionInfo(appBundle.bundleIdentifier, appBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"))
-        let deviceInfo = VersionInfo("Apple", current.model)
-        let clientVersionInfo = ClientVersionInfo(os, sdk, app, device)
+        let osInfo = VersionInfo(id: current.systemName, version: current.systemVersion)
+        let sdkInfo = VersionInfo(id: libBundle.bundleIdentifier, version: libBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"))
+        let appInfo = VersionInfo(id: appBundle.bundleIdentifier, version: appBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString"))
+        let deviceInfo = VersionInfo(manufacturer: "Apple", model: current.model)
+        let clientVersionInfo = ClientVersionInfo(os: os, sdk: sdk, app: app, device: device)
         return try? JSONEncoder().encode(clientVersionInfo)
     }
 
