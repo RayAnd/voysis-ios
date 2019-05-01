@@ -8,7 +8,7 @@ class StructTests: XCTestCase {
         XCTAssertEqual(header.xVoysisIgnoreVad, true)
         XCTAssertEqual(header.authorization, "Bearer token")
         XCTAssertNotNil(header.audioProfileId)
-        XCTAssertNotNil(header.userAgent)
+        XCTAssertNotNil(header.xVoysisClientInfo)
     }
 
     func testStreamResponse() {
