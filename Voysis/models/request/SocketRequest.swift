@@ -56,20 +56,20 @@ public struct Headers: Codable {
     var audioProfileId: String? = ""
     var xVoysisIgnoreVad: Bool
     var authorization: String?
-    var userAgent: String?
+    var xVoysisClientInfo: String?
 
     public init(token: String, xVoysisIgnoreVad: Bool) {
         self.xVoysisIgnoreVad = xVoysisIgnoreVad
         authorization = "Bearer \(token)"
         audioProfileId = getAudioProfileId()
-        userAgent = getUserAgent()
+        xVoysisClientInfo = getClientVersionInfo()
     }
 
-    init(accept: String?, xVoysisIgnoreVad: Bool, acceptLanguage: String?, authorization: String, audioProfileId: String?, userAgent: String?) {
+    init(accept: String?, xVoysisIgnoreVad: Bool, acceptLanguage: String?, authorization: String, audioProfileId: String?, clientVersionInfo: String?) {
         self.xVoysisIgnoreVad = xVoysisIgnoreVad
         self.audioProfileId = audioProfileId
         self.authorization = authorization
-        self.userAgent = userAgent
+        self.xVoysisClientInfo = clientVersionInfo
         self.accept = accept
     }
 
@@ -77,7 +77,7 @@ public struct Headers: Codable {
         case audioProfileId = "X-Voysis-Audio-Profile-Id"
         case xVoysisIgnoreVad = "X-Voysis-Ignore-Vad"
         case authorization = "Authorization"
-        case userAgent = "User-Agent"
+        case xVoysisClientInfo = "X-Voysis-Client-Info"
         case accept = "Accept"
     }
 }
@@ -99,18 +99,54 @@ public struct Duration: Codable {
     }
 }
 
+public struct VersionInfo: Codable {
+    public var id: String?
+    public var version: String?
+
+    public init(id: String?, version: String?) {
+        self.id = id
+        self.version = version
+    }
+}
+
+public struct DeviceInfo: Codable {
+    public var manufacturer: String?
+    public var model: String?
+
+    public init(manufacturer: String?, model: String?) {
+        self.manufacturer = manufacturer
+        self.model = model
+    }
+}
+
+public struct ClientVersionInfo: Codable {
+    public var os: VersionInfo
+    public var sdk: VersionInfo
+    public var app: VersionInfo
+    public var device: DeviceInfo
+
+    public init(os: VersionInfo, sdk: VersionInfo, app: VersionInfo, device: DeviceInfo) {
+        self.os = os
+        self.sdk = sdk
+        self.app = app
+        self.device = device
+    }
+}
+
 extension Headers {
 
-    private func getUserAgent() -> String {
+    private func getClientVersionInfo() -> String? {
         let current = UIDevice.current
-        let unknown = "unknown"
         let appBundle = Bundle.main
-        let appIdentifier = appBundle.bundleIdentifier ?? unknown
-        let appVersion = appBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? unknown
         let libBundle = Bundle(for: VoysisWebSocketClient.self)
-        let libIdentifier = libBundle.bundleIdentifier ?? unknown
-        let libVersion = libBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? unknown
-        return "(\(current.systemName) \(current.systemVersion); \(current.model)) \(appIdentifier)/\(appVersion) \(libIdentifier)/\(libVersion)"
+        let osInfo = VersionInfo(id: current.systemName, version: current.systemVersion)
+        let sdkVersion = libBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString")
+        let appVersion = appBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString")
+        let sdkInfo = VersionInfo(id: libBundle.bundleIdentifier, version: sdkVersion as! String?)
+        let appInfo = VersionInfo(id: appBundle.bundleIdentifier, version: appVersion as! String?)
+        let deviceInfo = DeviceInfo(manufacturer: "Apple", model: current.model)
+        let clientVersionInfo = ClientVersionInfo(os: osInfo, sdk: sdkInfo, app: appInfo, device: deviceInfo)
+        return (try? String(data: JSONEncoder().encode(clientVersionInfo), encoding: .utf8)) ?? nil
     }
 
     public func getAudioProfileId() -> String {
